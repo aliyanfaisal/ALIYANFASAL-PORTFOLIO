@@ -2,8 +2,8 @@
 
 <a href="{{ route('services.show', $service) }}" class="group relative flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white transition hover:-translate-y-1 hover:border-indigo-400/50 hover:shadow-lg hover:shadow-indigo-500/5 dark:border-white/10 dark:bg-zinc-900">
     @if ($bestSeller)
-        <span class="absolute left-4 top-4 z-10 rounded-full bg-amber-400 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-amber-950 shadow-sm">
-            ⭐ Best Seller
+        <span class="absolute left-4 top-4 z-10 inline-flex items-center gap-1 rounded-full bg-amber-400 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-amber-950 shadow-sm">
+            <x-icon name="star" class="size-3" /> Best Seller
         </span>
     @endif
 

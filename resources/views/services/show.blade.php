@@ -72,7 +72,7 @@
         <section class="border-t border-zinc-200 bg-zinc-50 py-16 dark:border-white/10 dark:bg-white/[0.02]">
             <div class="mx-auto max-w-6xl px-6">
                 <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Other Services</h2>
-                <div class="mt-8 grid gap-6 md:grid-cols-3">
+                <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
                     @foreach ($related as $item)
                         <x-service-card :service="$item" />
                     @endforeach

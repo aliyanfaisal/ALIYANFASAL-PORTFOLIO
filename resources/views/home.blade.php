@@ -4,15 +4,15 @@
         <div class="bg-grid absolute inset-0 -z-10"></div>
 
         {{-- ambient floating tech icons --}}
-        <div class="pointer-events-none absolute inset-0 -z-10 hidden overflow-hidden sm:block" aria-hidden="true">
-            <span class="animate-float absolute left-[6%] top-[18%] text-2xl opacity-[0.12] blur-[0.5px]" style="animation-delay: 0.2s">💻</span>
-            <span class="animate-float absolute left-[16%] top-[68%] text-xl opacity-[0.1] blur-[0.5px]" style="animation-delay: 2.1s">🐘</span>
-            <span class="animate-float absolute left-[38%] top-[8%] text-lg opacity-[0.14] blur-[0.5px]" style="animation-delay: 1.3s">🧠</span>
-            <span class="animate-float absolute left-[30%] top-[85%] text-xl opacity-[0.1] blur-[0.5px]" style="animation-delay: 3.4s">🗄️</span>
-            <span class="animate-float absolute right-[8%] top-[10%] text-xl opacity-[0.12] blur-[0.5px]" style="animation-delay: 0.8s">☁️</span>
-            <span class="animate-float absolute right-[4%] top-[55%] text-lg opacity-[0.1] blur-[0.5px]" style="animation-delay: 2.6s">🔗</span>
-            <span class="animate-float absolute right-[20%] top-[88%] text-xl opacity-[0.12] blur-[0.5px]" style="animation-delay: 1.8s">🛒</span>
-            <span class="animate-float absolute left-[48%] top-[45%] text-lg opacity-[0.1] blur-[0.5px]" style="animation-delay: 4s">✨</span>
+        <div class="pointer-events-none absolute inset-0 -z-10 hidden overflow-hidden text-indigo-300 dark:text-indigo-200 sm:block" aria-hidden="true">
+            <x-icon name="code" class="animate-float absolute left-[6%] top-[18%] size-7 opacity-[0.16]" style="animation-delay: 0.2s" />
+            <x-icon name="cube" class="animate-float absolute left-[16%] top-[68%] size-6 opacity-[0.14]" style="animation-delay: 2.1s" />
+            <x-icon name="cpu-chip" class="animate-float absolute left-[38%] top-[8%] size-5 opacity-[0.18]" style="animation-delay: 1.3s" />
+            <x-icon name="circle-stack" class="animate-float absolute left-[30%] top-[85%] size-6 opacity-[0.14]" style="animation-delay: 3.4s" />
+            <x-icon name="cloud" class="animate-float absolute right-[8%] top-[10%] size-6 opacity-[0.16]" style="animation-delay: 0.8s" />
+            <x-icon name="link" class="animate-float absolute right-[4%] top-[55%] size-5 opacity-[0.14]" style="animation-delay: 2.6s" />
+            <x-icon name="shopping-cart" class="animate-float absolute right-[20%] top-[88%] size-6 opacity-[0.16]" style="animation-delay: 1.8s" />
+            <x-icon name="sparkles" class="animate-float absolute left-[48%] top-[45%] size-5 opacity-[0.14]" style="animation-delay: 4s" />
         </div>
 
         <div class="mx-auto grid max-w-6xl gap-12 px-6 pb-16 pt-6 md:grid-cols-2 md:items-center md:pb-24 md:pt-10">
@@ -64,7 +64,7 @@
                         <dd class="text-xs text-zinc-500 dark:text-zinc-400">Projects Delivered</dd>
                     </div>
                     <div>
-                        <dt class="text-2xl font-bold text-zinc-900 dark:text-white">5★</dt>
+                        <dt class="flex items-center gap-1 text-2xl font-bold text-zinc-900 dark:text-white">5 <x-icon name="star" class="size-5 text-amber-400" /></dt>
                         <dd class="text-xs text-zinc-500 dark:text-zinc-400">Fiverr Rating (205)</dd>
                     </div>
                 </dl>
@@ -92,32 +92,32 @@
                 <div class="mx-auto -mt-6 h-6 w-2/3 rounded-full bg-zinc-900/20 blur-xl dark:bg-black/40"></div>
 
                 <div class="glass-card animate-float absolute -left-10 top-2 z-20 hidden w-40 lg:block" style="animation-delay: 0s">
-                    <p class="text-lg">🤖</p>
-                    <p class="mt-1 text-xs font-semibold text-zinc-800 dark:text-zinc-100">AI Integrations</p>
+                    <div class="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-indigo-500/15 via-violet-500/15 to-cyan-400/15 text-indigo-500 dark:text-indigo-300"><x-icon name="cpu-chip" class="size-4" /></div>
+                    <p class="mt-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-100">AI Integrations</p>
                     <p class="text-[11px] text-zinc-500 dark:text-zinc-400">OpenAI · Claude · Gemini</p>
                 </div>
 
                 <div class="glass-card animate-float absolute -right-4 top-1/4 z-20 w-36" style="animation-delay: 1.2s">
-                    <p class="text-lg">⭐</p>
-                    <p class="mt-1 text-xs font-semibold text-zinc-800 dark:text-zinc-100">5.0 Rating</p>
+                    <div class="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-amber-400/20 via-amber-400/10 to-transparent text-amber-500"><x-icon name="star" class="size-4" /></div>
+                    <p class="mt-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-100">5.0 Rating</p>
                     <p class="text-[11px] text-zinc-500 dark:text-zinc-400">205 Fiverr reviews</p>
                 </div>
 
                 <div class="glass-card animate-float absolute -left-6 top-[35%] z-20 hidden w-36 lg:block" style="animation-delay: 1.8s">
-                    <p class="text-lg">🚀</p>
-                    <p class="mt-1 text-xs font-semibold text-zinc-800 dark:text-zinc-100">Fast Delivery</p>
+                    <div class="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-violet-500/15 via-fuchsia-500/15 to-transparent text-violet-500 dark:text-violet-300"><x-icon name="rocket" class="size-4" /></div>
+                    <p class="mt-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-100">Fast Delivery</p>
                     <p class="text-[11px] text-zinc-500 dark:text-zinc-400">Avg. 1–3 day turnaround</p>
                 </div>
 
                 <div class="glass-card animate-float absolute -left-2 bottom-10 z-20 w-44" style="animation-delay: 2.4s">
-                    <p class="text-lg">⚡</p>
-                    <p class="mt-1 text-xs font-semibold text-zinc-800 dark:text-zinc-100">260+ Projects Shipped</p>
+                    <div class="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-cyan-500/15 via-indigo-500/15 to-transparent text-cyan-500 dark:text-cyan-300"><x-icon name="bolt" class="size-4" /></div>
+                    <p class="mt-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-100">260+ Projects Shipped</p>
                     <p class="text-[11px] text-zinc-500 dark:text-zinc-400">Laravel · WordPress · AI</p>
                 </div>
 
                 <div class="glass-card animate-float absolute -right-6 bottom-0 z-20 hidden w-36 sm:block" style="animation-delay: 3.2s">
-                    <p class="text-lg">🏆</p>
-                    <p class="mt-1 text-xs font-semibold text-zinc-800 dark:text-zinc-100">Level 2 Seller</p>
+                    <div class="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-emerald-500/15 via-teal-500/15 to-transparent text-emerald-500 dark:text-emerald-300"><x-icon name="badge-check" class="size-4" /></div>
+                    <p class="mt-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-100">Level 2 Seller</p>
                     <p class="text-[11px] text-zinc-500 dark:text-zinc-400">Fiverr verified</p>
                 </div>
             </div>
@@ -154,7 +154,7 @@
                     <a href="{{ route('services.index') }}" class="text-sm font-medium text-indigo-500 hover:underline dark:text-indigo-400">View all &rarr;</a>
                 </div>
 
-                <div class="mt-8 grid gap-6 md:grid-cols-3">
+                <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
                     @php $topRatingCount = $featuredServices->max('rating_count'); @endphp
                     @foreach ($featuredServices as $service)
                         <x-service-card :service="$service" :bestSeller="$service->rating_count === $topRatingCount && $topRatingCount > 0" />
@@ -167,12 +167,12 @@
     {{-- Skills --}}
     @php
         $skillIcons = [
-            'Backend' => '⚙️',
-            'CMS' => '🌐',
-            'AI & Automation' => '🤖',
-            'Frontend' => '🎨',
-            'DevOps' => '🖥️',
-            'Security & Performance' => '🛡️',
+            'Backend' => 'cog',
+            'CMS' => 'globe',
+            'AI & Automation' => 'cpu-chip',
+            'Frontend' => 'swatch',
+            'DevOps' => 'server',
+            'Security & Performance' => 'shield-check',
         ];
         $categoryColors = [
             'Backend' => ['grad' => 'from-indigo-500 to-blue-500', 'tint' => 'from-indigo-500/10 via-blue-500/5 to-transparent', 'border' => 'hover:border-indigo-400/40', 'glow' => 'hover:shadow-indigo-500/10'],
@@ -199,8 +199,8 @@
                     >
                         <div class="absolute inset-0 -z-10 bg-gradient-to-br {{ $c['tint'] }} opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
 
-                        <div class="mx-auto grid size-11 place-items-center rounded-xl bg-gradient-to-br {{ $c['grad'] }} text-lg text-white shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
-                            {{ $skillIcons[$skill->category] ?? '🔧' }}
+                        <div class="mx-auto grid size-11 place-items-center rounded-xl bg-gradient-to-br {{ $c['grad'] }} text-white shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                            <x-icon :name="$skillIcons[$skill->category] ?? 'wrench'" class="size-5" />
                         </div>
                         <p class="mt-3 text-sm font-semibold text-zinc-800 dark:text-zinc-100">{{ $skill->name }}</p>
                         <p class="text-[10px] uppercase tracking-wide text-zinc-400">{{ $skill->category }}</p>
@@ -229,8 +229,8 @@
                         @php $c = $categoryColors[$category] ?? $defaultColor; @endphp
                         <div class="reveal rounded-2xl border border-zinc-200 bg-white p-6 transition hover:-translate-y-1 hover:shadow-lg dark:border-white/10 dark:bg-zinc-900 {{ $c['border'] }} {{ $c['glow'] }}">
                             <div class="flex items-center gap-2.5">
-                                <div class="grid size-8 place-items-center rounded-lg bg-gradient-to-br {{ $c['grad'] }} text-sm text-white shadow-sm">
-                                    {{ $skillIcons[$category] ?? '🔧' }}
+                                <div class="grid size-8 place-items-center rounded-lg bg-gradient-to-br {{ $c['grad'] }} text-white shadow-sm">
+                                    <x-icon :name="$skillIcons[$category] ?? 'wrench'" class="size-4" />
                                 </div>
                                 <h3 class="text-sm font-semibold text-zinc-900 dark:text-white">{{ $category }}</h3>
                             </div>
@@ -266,7 +266,7 @@
                     $platforms = [
                         [
                             'name' => 'Fiverr',
-                            'subtitle' => '5★ · 200+ reviews',
+                            'subtitle' => '5.0 · 200+ reviews',
                             'url' => 'https://www.fiverr.com/aliyanfaisal',
                             'badge' => 'bg-[#1dbf73]',
                             'icon' => '<path d="M9 12.75L11.25 15 15 9.75" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="12" cy="12" r="9" stroke="white" stroke-width="2" fill="none"/>',
@@ -321,8 +321,8 @@
             <div class="mx-auto max-w-6xl px-6">
                 <div class="grid gap-10 md:grid-cols-2 md:items-center">
                     <div>
-                        <p class="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-500 dark:text-indigo-300">
-                            🤖 AI &amp; Automation
+                        <p class="inline-flex items-center gap-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3 py-1 text-xs font-medium text-indigo-500 dark:text-indigo-300">
+                            <x-icon name="cpu-chip" class="size-3.5" /> AI &amp; Automation
                         </p>
                         <h2 class="mt-4 text-3xl font-bold text-zinc-900 dark:text-white">I build AI into the web apps I ship.</h2>
                         <p class="mt-4 text-zinc-600 dark:text-zinc-400">
@@ -336,17 +336,17 @@
                     <div class="grid grid-cols-2 gap-4">
                         @php
                             $aiCards = [
-                                ['icon' => '💬', 'title' => 'AI Chatbots', 'desc' => '24/7 support trained on your products, FAQs and policies.'],
-                                ['icon' => '⚙️', 'title' => 'Workflow Automation', 'desc' => 'Automate orders, emails and repetitive store tasks.'],
-                                ['icon' => '🔌', 'title' => 'API Integrations', 'desc' => 'Connect your app to OpenAI, Claude, Gemini & Groq.'],
-                                ['icon' => '📈', 'title' => 'AI SEO & Content', 'desc' => 'Generate product copy, meta tags & keyword content.'],
-                                ['icon' => '🧩', 'title' => 'Custom AI Products', 'desc' => 'Design and build bespoke AI-powered tools and products from the ground up.', 'span' => true],
+                                ['icon' => 'chat-bubble', 'title' => 'AI Chatbots', 'desc' => '24/7 support trained on your products, FAQs and policies.'],
+                                ['icon' => 'cog', 'title' => 'Workflow Automation', 'desc' => 'Automate orders, emails and repetitive store tasks.'],
+                                ['icon' => 'link', 'title' => 'API Integrations', 'desc' => 'Connect your app to OpenAI, Claude, Gemini & Groq.'],
+                                ['icon' => 'chart-bar', 'title' => 'AI SEO & Content', 'desc' => 'Generate product copy, meta tags & keyword content.'],
+                                ['icon' => 'light-bulb', 'title' => 'Custom AI Products', 'desc' => 'Design and build bespoke AI-powered tools and products from the ground up.', 'span' => true],
                             ];
                         @endphp
                         @foreach ($aiCards as $card)
                             <div class="group rounded-2xl border border-zinc-200 bg-white p-5 transition hover:-translate-y-1 hover:border-indigo-400/40 hover:shadow-lg hover:shadow-indigo-500/10 dark:border-white/10 dark:bg-zinc-900 {{ $card['span'] ?? false ? 'col-span-2' : '' }}">
-                                <div class="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-indigo-500/15 via-violet-500/15 to-cyan-400/15 text-lg transition group-hover:scale-110">
-                                    {{ $card['icon'] }}
+                                <div class="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-indigo-500/15 via-violet-500/15 to-cyan-400/15 text-indigo-500 transition group-hover:scale-110 dark:text-indigo-300">
+                                    <x-icon :name="$card['icon']" class="size-5" />
                                 </div>
                                 <p class="mt-3 text-sm font-semibold text-zinc-900 dark:text-white">{{ $card['title'] }}</p>
                                 <p class="mt-1 text-xs text-zinc-500 dark:text-zinc-400">{{ $card['desc'] }}</p>
@@ -367,7 +367,7 @@
                     <a href="{{ route('projects.index') }}" class="text-sm font-medium text-indigo-500 hover:underline dark:text-indigo-400">View all &rarr;</a>
                 </div>
 
-                <div class="mt-8 grid gap-6 md:grid-cols-3">
+                <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
                     @foreach ($featuredProjects as $project)
                         <x-project-card :project="$project" />
                     @endforeach

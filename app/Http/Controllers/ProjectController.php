@@ -10,7 +10,7 @@ class ProjectController extends Controller
     public function index(GithubService $github)
     {
         return view('projects.index', [
-            'projects' => Project::orderBy('sort_order')->get(),
+            'projects' => Project::orderByRaw('external_url IS NULL')->orderBy('sort_order')->get(),
             'repos' => $github->repositories(9),
             'githubProfile' => $github->profile(),
         ]);

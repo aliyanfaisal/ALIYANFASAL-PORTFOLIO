@@ -8,7 +8,7 @@
             </p>
         </div>
 
-        <div class="mt-12 grid gap-10 md:grid-cols-5">
+        <div class="mt-12 grid grid-cols-1 gap-10 md:grid-cols-5">
             <div class="space-y-4 md:col-span-2">
                 <a href="mailto:aliyanfaisal15@gmail.com" class="flex items-center gap-3 rounded-2xl border border-zinc-200 bg-white p-4 transition hover:border-indigo-400/50 dark:border-white/10 dark:bg-zinc-900">
                     <span class="grid size-10 shrink-0 place-items-center rounded-full bg-indigo-500/10 text-indigo-500 dark:text-indigo-400">

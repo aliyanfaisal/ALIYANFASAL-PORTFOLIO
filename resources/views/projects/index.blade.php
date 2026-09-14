@@ -10,7 +10,8 @@
 
     <section class="mx-auto max-w-6xl px-6 pb-16">
         <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Client Projects</h2>
-        <div class="mt-8 grid gap-6 md:grid-cols-3">
+        <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">A selection of my most recent work — not the full list of projects I've delivered.</p>
+        <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
             @foreach ($projects as $project)
                 <x-project-card :project="$project" />
             @endforeach
@@ -37,7 +38,7 @@
             @if (empty($repos))
                 <p class="mt-8 text-sm text-zinc-500 dark:text-zinc-400">Repositories couldn't be loaded right now &mdash; check back shortly.</p>
             @else
-                <div class="mt-8 grid gap-6 md:grid-cols-3">
+                <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
                     @foreach ($repos as $repo)
                         <a href="{{ $repo['url'] }}" target="_blank" rel="noopener" class="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-6 transition hover:-translate-y-1 hover:border-indigo-400/50 hover:shadow-lg hover:shadow-indigo-500/5 dark:border-white/10 dark:bg-zinc-900">
                             <div class="flex items-center justify-between">

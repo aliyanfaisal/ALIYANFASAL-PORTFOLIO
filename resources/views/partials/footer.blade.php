@@ -1,6 +1,6 @@
 <footer class="border-t border-zinc-200 dark:border-white/10">
     <div class="mx-auto max-w-6xl px-6 py-12">
-        <div class="grid gap-10 md:grid-cols-3">
+        <div class="grid grid-cols-1 gap-10 md:grid-cols-3">
             <div>
                 <a href="{{ route('home') }}"
                     class="text-lg font-semibold tracking-tight text-zinc-900 dark:text-white">

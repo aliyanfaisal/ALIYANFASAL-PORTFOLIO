@@ -3,7 +3,7 @@
         <p class="text-sm font-semibold uppercase tracking-widest text-indigo-500 dark:text-indigo-400">Services</p>
         <h1 class="mt-3 text-4xl font-bold text-zinc-900 dark:text-white">Hire Me on Fiverr</h1>
         <p class="mx-auto mt-4 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
-            Level 2 Seller with a 5★ rating across 200+ reviews. Pick a service below or
+            Level 2 Seller with a 5.0 rating across 200+ reviews. Pick a service below or
             <a href="{{ route('contact.create') }}" class="font-medium text-indigo-500 hover:underline dark:text-indigo-400">get in touch</a> for something custom.
         </p>
     </section>
