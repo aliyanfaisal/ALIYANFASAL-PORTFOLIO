@@ -23,8 +23,11 @@
         'light-bulb' => '<path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />',
         'bolt' => '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />',
         'arrow-up-right' => '<path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />',
+        'bookmark' => '<path stroke-linecap="round" stroke-linejoin="round" d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21L12 17.25 4.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z" />',
+        'fiverr' => '<path d="M9 12.75L11.25 15 15 9.75" stroke-linecap="round" stroke-linejoin="round" /><circle cx="12" cy="12" r="9" />',
+        'envelope' => '<path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16v16H4z" /><path stroke-linecap="round" stroke-linejoin="round" d="M22 6l-10 7L2 6" />',
     ];
 @endphp
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="{{ $class }}" {{ $attributes }}>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="{{ $class }}" aria-hidden="true" {{ $attributes }}>
     {!! $icons[$name] ?? $icons['sparkles'] !!}
 </svg>

@@ -60,8 +60,8 @@
                         <dd class="text-xs text-zinc-500 dark:text-zinc-400">Years Experience</dd>
                     </div>
                     <div>
-                        <dt class="text-2xl font-bold text-zinc-900 dark:text-white">260+</dt>
-                        <dd class="text-xs text-zinc-500 dark:text-zinc-400">Projects Delivered</dd>
+                        <dt class="text-2xl font-bold text-zinc-900 dark:text-white">300+</dt>
+                        <dd class="text-xs text-zinc-500 dark:text-zinc-400">Orders Delivered</dd>
                     </div>
                     <div>
                         <dt class="flex items-center gap-1 text-2xl font-bold text-zinc-900 dark:text-white">5 <x-icon name="star" class="size-5 text-amber-400" /></dt>
@@ -111,7 +111,7 @@
 
                 <div class="glass-card animate-float absolute -left-2 bottom-10 z-20 w-44" style="animation-delay: 2.4s">
                     <div class="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-cyan-500/15 via-indigo-500/15 to-transparent text-cyan-500 dark:text-cyan-300"><x-icon name="bolt" class="size-4" /></div>
-                    <p class="mt-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-100">260+ Projects Shipped</p>
+                    <p class="mt-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-100">300+ Orders Delivered</p>
                     <p class="text-[11px] text-zinc-500 dark:text-zinc-400">Laravel · WordPress · AI</p>
                 </div>
 

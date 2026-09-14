@@ -30,15 +30,15 @@
                 <h3 class="text-sm font-semibold text-zinc-900 dark:text-white">Connect</h3>
                 <ul class="mt-3 space-y-2 text-sm text-zinc-500 dark:text-zinc-400">
                     <li><a href="https://github.com/aliyanfaisal" target="_blank" rel="noopener"
-                            class="hover:text-indigo-500 dark:hover:text-indigo-400">GitHub</a></li>
+                            class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon name="github" class="size-4" /> GitHub</a></li>
                     <li><a href="https://www.fiverr.com/aliyanfaisal" target="_blank" rel="noopener"
-                            class="hover:text-indigo-500 dark:hover:text-indigo-400">Fiverr</a></li>
+                            class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon name="fiverr" class="size-4" /> Fiverr</a></li>
                     <li><a href="https://www.upwork.com/freelancers/~01f763ee3322eda908" target="_blank" rel="noopener"
-                            class="hover:text-indigo-500 dark:hover:text-indigo-400">Upwork</a></li>
+                            class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon name="upwork" class="size-4" /> Upwork</a></li>
                     <li><a href="https://www.linkedin.com/in/aliyan-faisal-5162261b7/" target="_blank" rel="noopener"
-                            class="hover:text-indigo-500 dark:hover:text-indigo-400">LinkedIn</a></li>
+                            class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon name="linkedin" class="size-4" /> LinkedIn</a></li>
                     <li><a href="mailto:aliyanfaisal15@gmail.com"
-                            class="hover:text-indigo-500 dark:hover:text-indigo-400">aliyanfaisal15@gmail.com</a></li>
+                            class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-icon name="envelope" class="size-4" /> aliyanfaisal15@gmail.com</a></li>
                 </ul>
             </div>
         </div>

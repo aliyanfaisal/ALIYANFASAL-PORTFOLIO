@@ -45,6 +45,11 @@
                                 <h3 class="truncate font-semibold text-zinc-900 dark:text-white">{{ $repo['name'] }}</h3>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="size-4 shrink-0 text-zinc-400 transition group-hover:text-indigo-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
                             </div>
+                            @if ($repo['pinned'] ?? false)
+                                <span class="mt-1 inline-flex w-fit items-center gap-1 rounded-full bg-indigo-500/10 px-2 py-0.5 text-[10px] font-medium text-indigo-500 dark:text-indigo-400">
+                                    <x-icon name="bookmark" class="size-3" /> Pinned
+                                </span>
+                            @endif
                             <p class="mt-2 line-clamp-2 flex-1 text-sm text-zinc-500 dark:text-zinc-400">{{ $repo['description'] ?? 'No description provided.' }}</p>
                             <div class="mt-4 flex items-center gap-4 text-xs text-zinc-400">
                                 @if ($repo['language'])

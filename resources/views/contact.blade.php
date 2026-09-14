@@ -41,10 +41,10 @@
                 </div>
 
                 <div class="grid grid-cols-2 gap-3 pt-2">
-                    <a href="https://www.fiverr.com/aliyanfaisal" target="_blank" rel="noopener" class="rounded-full border border-zinc-300 px-4 py-2 text-center text-sm font-medium text-zinc-700 hover:border-indigo-400 hover:text-indigo-500 dark:border-white/15 dark:text-zinc-200">Fiverr</a>
-                    <a href="https://www.upwork.com/freelancers/~01f763ee3322eda908" target="_blank" rel="noopener" class="rounded-full border border-zinc-300 px-4 py-2 text-center text-sm font-medium text-zinc-700 hover:border-indigo-400 hover:text-indigo-500 dark:border-white/15 dark:text-zinc-200">Upwork</a>
-                    <a href="https://www.linkedin.com/in/aliyan-faisal-5162261b7/" target="_blank" rel="noopener" class="rounded-full border border-zinc-300 px-4 py-2 text-center text-sm font-medium text-zinc-700 hover:border-indigo-400 hover:text-indigo-500 dark:border-white/15 dark:text-zinc-200">LinkedIn</a>
-                    <a href="https://github.com/aliyanfaisal" target="_blank" rel="noopener" class="rounded-full border border-zinc-300 px-4 py-2 text-center text-sm font-medium text-zinc-700 hover:border-indigo-400 hover:text-indigo-500 dark:border-white/15 dark:text-zinc-200">GitHub</a>
+                    <a href="https://www.fiverr.com/aliyanfaisal" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-center text-sm font-medium text-zinc-700 hover:border-indigo-400 hover:text-indigo-500 dark:border-white/15 dark:text-zinc-200"><x-brand-icon name="fiverr" class="size-4" /> Fiverr</a>
+                    <a href="https://www.upwork.com/freelancers/~01f763ee3322eda908" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-center text-sm font-medium text-zinc-700 hover:border-indigo-400 hover:text-indigo-500 dark:border-white/15 dark:text-zinc-200"><x-brand-icon name="upwork" class="size-4" /> Upwork</a>
+                    <a href="https://www.linkedin.com/in/aliyan-faisal-5162261b7/" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-center text-sm font-medium text-zinc-700 hover:border-indigo-400 hover:text-indigo-500 dark:border-white/15 dark:text-zinc-200"><x-brand-icon name="linkedin" class="size-4" /> LinkedIn</a>
+                    <a href="https://github.com/aliyanfaisal" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-center text-sm font-medium text-zinc-700 hover:border-indigo-400 hover:text-indigo-500 dark:border-white/15 dark:text-zinc-200"><x-brand-icon name="github" class="size-4" /> GitHub</a>
                 </div>
             </div>
 

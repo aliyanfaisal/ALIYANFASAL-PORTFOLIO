@@ -5,7 +5,7 @@
         <p class="mx-auto mt-6 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
             A full-stack web developer specializing in custom WordPress, Laravel and WooCommerce builds
             — with growing expertise in integrating AI, APIs and automation into websites and business workflows.
-            I've spent 5+ years building for clients on Fiverr, Upwork and locally, delivering 260+ projects along the way.
+            I've spent 5+ years building for clients on Fiverr, Upwork and locally, delivering 300+ orders along the way.
         </p>
     </section>
 

@@ -2,7 +2,7 @@
 
 Full-stack web developer building custom **Laravel** and **WordPress/WooCommerce** products — and increasingly, baking **AI** directly into them: chatbots, workflow automation, and API integrations with OpenAI, Claude and Gemini.
 
-5+ years turning ideas into production-ready web apps for clients on Fiverr, Upwork, and locally — **260+ projects delivered**, **5★** rating.
+5+ years turning ideas into production-ready web apps for clients on Fiverr, Upwork, and locally — **300+ orders delivered**, **5★** rating.
 
 This repository is the source for my portfolio site, [aliyanfaisal.com](https://aliyanfaisal.com).
 
