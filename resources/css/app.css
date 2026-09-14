@@ -1,0 +1,128 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-white text-zinc-700 antialiased dark:bg-zinc-950 dark:text-zinc-300;
+    }
+}
+
+@layer components {
+    .prose-body :where(p, li) {
+        @apply text-zinc-600 dark:text-zinc-300;
+    }
+}
+
+.glow-gradient {
+    background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(99, 102, 241, 0.22), transparent 70%),
+        radial-gradient(circle at top left, rgba(99, 102, 241, 0.25), transparent 45%),
+        radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.18), transparent 45%);
+}
+
+.text-gradient {
+    @apply bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent;
+}
+
+::selection {
+    @apply bg-indigo-500/30 text-inherit;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+.bg-grid {
+    background-image:
+        linear-gradient(to right, rgba(129, 140, 248, 0.12) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(129, 140, 248, 0.12) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 55%, transparent 100%);
+}
+
+.fade-top {
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0%, black 4%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0%, black 4%);
+}
+
+.glass-card {
+    @apply rounded-2xl border border-zinc-200 bg-white/90 p-3.5 shadow-xl shadow-zinc-900/5 backdrop-blur-md dark:border-white/10 dark:bg-zinc-900/80 dark:shadow-black/30;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+    animation: float 5s ease-in-out infinite;
+}
+
+@keyframes pulse-slow {
+    0%, 100% { opacity: 0.45; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.08); }
+}
+
+.animate-pulse-slow {
+    animation: pulse-slow 5s ease-in-out infinite;
+}
+
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+    animation: marquee 28s linear infinite;
+}
+
+.skill-fill {
+    transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animate-marquee:hover {
+    animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-float,
+    .animate-pulse-slow,
+    .animate-marquee {
+        animation: none;
+    }
+
+    .skill-fill {
+        transition: none;
+    }
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
