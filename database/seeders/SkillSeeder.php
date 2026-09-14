@@ -34,7 +34,10 @@ class SkillSeeder extends Seeder
             ['name' => 'Alpine.js', 'category' => 'Frontend', 'proficiency' => 85],
             ['name' => 'Nginx / Apache', 'category' => 'DevOps', 'proficiency' => 82],
 
-            ['name' => 'Security & Performance Optimization', 'category' => 'Security & Performance', 'proficiency' => 85],
+            ['name' => 'Website Security Hardening', 'category' => 'Security & Performance', 'proficiency' => 88],
+            ['name' => 'Performance & Speed Optimization', 'category' => 'Security & Performance', 'proficiency' => 90],
+            ['name' => 'Caching & Core Web Vitals', 'category' => 'Security & Performance', 'proficiency' => 85],
+            ['name' => 'SSL & Backup Management', 'category' => 'Security & Performance', 'proficiency' => 82],
         ];
 
         Skill::query()->delete();

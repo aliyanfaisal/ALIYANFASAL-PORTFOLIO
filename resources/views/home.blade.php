@@ -4,15 +4,15 @@
         <div class="bg-grid absolute inset-0 -z-10"></div>
 
         {{-- ambient floating tech icons --}}
-        <div class="pointer-events-none absolute inset-0 -z-10 hidden overflow-hidden text-indigo-300 dark:text-indigo-200 sm:block" aria-hidden="true">
-            <x-icon name="code" class="animate-float absolute left-[6%] top-[18%] size-7 opacity-[0.16]" style="animation-delay: 0.2s" />
-            <x-icon name="cube" class="animate-float absolute left-[16%] top-[68%] size-6 opacity-[0.14]" style="animation-delay: 2.1s" />
-            <x-icon name="cpu-chip" class="animate-float absolute left-[38%] top-[8%] size-5 opacity-[0.18]" style="animation-delay: 1.3s" />
-            <x-icon name="circle-stack" class="animate-float absolute left-[30%] top-[85%] size-6 opacity-[0.14]" style="animation-delay: 3.4s" />
-            <x-icon name="cloud" class="animate-float absolute right-[8%] top-[10%] size-6 opacity-[0.16]" style="animation-delay: 0.8s" />
-            <x-icon name="link" class="animate-float absolute right-[4%] top-[55%] size-5 opacity-[0.14]" style="animation-delay: 2.6s" />
-            <x-icon name="shopping-cart" class="animate-float absolute right-[20%] top-[88%] size-6 opacity-[0.16]" style="animation-delay: 1.8s" />
-            <x-icon name="sparkles" class="animate-float absolute left-[48%] top-[45%] size-5 opacity-[0.14]" style="animation-delay: 4s" />
+        <div class="pointer-events-none absolute inset-0 -z-10 hidden overflow-hidden text-indigo-400 dark:text-indigo-300 sm:block" aria-hidden="true">
+            <x-icon name="code" class="animate-float absolute left-[6%] top-[18%] size-8 opacity-40" style="animation-delay: 0.2s" />
+            <x-icon name="cube" class="animate-float absolute left-[16%] top-[68%] size-7 opacity-35" style="animation-delay: 2.1s" />
+            <x-icon name="cpu-chip" class="animate-float absolute left-[38%] top-[8%] size-6 opacity-45" style="animation-delay: 1.3s" />
+            <x-icon name="circle-stack" class="animate-float absolute left-[30%] top-[85%] size-7 opacity-35" style="animation-delay: 3.4s" />
+            <x-icon name="cloud" class="animate-float absolute right-[8%] top-[10%] size-7 opacity-40" style="animation-delay: 0.8s" />
+            <x-icon name="link" class="animate-float absolute right-[4%] top-[55%] size-6 opacity-35" style="animation-delay: 2.6s" />
+            <x-icon name="shopping-cart" class="animate-float absolute right-[20%] top-[88%] size-7 opacity-40" style="animation-delay: 1.8s" />
+            <x-icon name="sparkles" class="animate-float absolute left-[48%] top-[45%] size-6 opacity-35" style="animation-delay: 4s" />
         </div>
 
         <div class="mx-auto grid max-w-6xl gap-12 px-6 pb-16 pt-6 md:grid-cols-2 md:items-center md:pb-24 md:pt-10">
@@ -269,7 +269,7 @@
                             'subtitle' => '5.0 · 200+ reviews',
                             'url' => 'https://www.fiverr.com/aliyanfaisal',
                             'badge' => 'bg-[#1dbf73]',
-                            'icon' => '<path d="M9 12.75L11.25 15 15 9.75" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="12" cy="12" r="9" stroke="white" stroke-width="2" fill="none"/>',
+                            'icon' => '<text x="12" y="16.5" text-anchor="middle" font-size="11" font-weight="700" fill="white" font-family="Arial, sans-serif">fi</text>',
                         ],
                         [
                             'name' => 'Upwork',

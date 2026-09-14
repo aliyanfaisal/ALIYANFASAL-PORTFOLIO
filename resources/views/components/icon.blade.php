@@ -24,7 +24,6 @@
         'bolt' => '<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />',
         'arrow-up-right' => '<path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />',
         'bookmark' => '<path stroke-linecap="round" stroke-linejoin="round" d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21L12 17.25 4.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z" />',
-        'fiverr' => '<path d="M9 12.75L11.25 15 15 9.75" stroke-linecap="round" stroke-linejoin="round" /><circle cx="12" cy="12" r="9" />',
         'envelope' => '<path stroke-linecap="round" stroke-linejoin="round" d="M4 4h16v16H4z" /><path stroke-linecap="round" stroke-linejoin="round" d="M22 6l-10 7L2 6" />',
     ];
 @endphp
