@@ -172,6 +172,7 @@
             'AI & Automation' => '🤖',
             'Frontend' => '🎨',
             'DevOps' => '🖥️',
+            'Security & Performance' => '🛡️',
         ];
         $categoryColors = [
             'Backend' => ['grad' => 'from-indigo-500 to-blue-500', 'tint' => 'from-indigo-500/10 via-blue-500/5 to-transparent', 'border' => 'hover:border-indigo-400/40', 'glow' => 'hover:shadow-indigo-500/10'],
@@ -179,6 +180,7 @@
             'AI & Automation' => ['grad' => 'from-cyan-500 to-indigo-500', 'tint' => 'from-cyan-500/10 via-indigo-500/5 to-transparent', 'border' => 'hover:border-cyan-400/40', 'glow' => 'hover:shadow-cyan-500/10'],
             'Frontend' => ['grad' => 'from-rose-500 to-orange-400', 'tint' => 'from-rose-500/10 via-orange-400/5 to-transparent', 'border' => 'hover:border-rose-400/40', 'glow' => 'hover:shadow-rose-500/10'],
             'DevOps' => ['grad' => 'from-emerald-500 to-teal-500', 'tint' => 'from-emerald-500/10 via-teal-500/5 to-transparent', 'border' => 'hover:border-emerald-400/40', 'glow' => 'hover:shadow-emerald-500/10'],
+            'Security & Performance' => ['grad' => 'from-amber-500 to-red-500', 'tint' => 'from-amber-500/10 via-red-500/5 to-transparent', 'border' => 'hover:border-amber-400/40', 'glow' => 'hover:shadow-amber-500/10'],
         ];
         $defaultColor = ['grad' => 'from-indigo-500 to-cyan-400', 'tint' => 'from-indigo-500/10 via-cyan-400/5 to-transparent', 'border' => 'hover:border-indigo-400/40', 'glow' => 'hover:shadow-indigo-500/10'];
     @endphp
@@ -253,6 +255,65 @@
         </section>
     @endif
 
+    {{-- Connect --}}
+    <section class="reveal border-t border-zinc-200 py-20 dark:border-white/10">
+        <div class="mx-auto max-w-6xl px-6">
+            <p class="text-center text-sm font-semibold uppercase tracking-widest text-indigo-500 dark:text-indigo-400">Where to Find Me</p>
+            <h2 class="mt-2 text-center text-2xl font-bold text-zinc-900 dark:text-white">Let's Connect</h2>
+
+            <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                @php
+                    $platforms = [
+                        [
+                            'name' => 'Fiverr',
+                            'subtitle' => '5★ · 200+ reviews',
+                            'url' => 'https://www.fiverr.com/aliyanfaisal',
+                            'badge' => 'bg-[#1dbf73]',
+                            'icon' => '<path d="M9 12.75L11.25 15 15 9.75" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="12" cy="12" r="9" stroke="white" stroke-width="2" fill="none"/>',
+                        ],
+                        [
+                            'name' => 'Upwork',
+                            'subtitle' => 'Top Rated Freelancer',
+                            'url' => 'https://www.upwork.com/freelancers/~01f763ee3322eda908',
+                            'badge' => 'bg-[#14a800]',
+                            'icon' => '<text x="12" y="16.5" text-anchor="middle" font-size="10.5" font-weight="700" fill="white" font-family="Arial, sans-serif">Up</text>',
+                        ],
+                        [
+                            'name' => 'LinkedIn',
+                            'subtitle' => 'Connect professionally',
+                            'url' => 'https://www.linkedin.com/in/aliyan-faisal-5162261b7/',
+                            'badge' => 'bg-[#0a66c2]',
+                            'icon' => '<path d="M6.94 8.5H4.56V19h2.38V8.5zM5.75 4.75a1.38 1.38 0 100 2.76 1.38 1.38 0 000-2.76zM19.44 19h-2.37v-5.4c0-1.29-.46-2.16-1.6-2.16-.88 0-1.4.59-1.63 1.16-.08.2-.1.49-.1.77V19H11.4s.03-9.6 0-10.5h2.37v1.49a2.35 2.35 0 012.13-1.18c1.56 0 2.73 1.02 2.73 3.2V19z" fill="white"/>',
+                        ],
+                        [
+                            'name' => 'Email',
+                            'subtitle' => 'aliyanfaisal15@gmail.com',
+                            'url' => 'mailto:aliyanfaisal15@gmail.com',
+                            'badge' => 'bg-indigo-500',
+                            'icon' => '<path d="M4 4h16v16H4z" stroke="white" stroke-width="2" fill="none" stroke-linejoin="round"/><path d="M22 6l-10 7L2 6" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
+                        ],
+                    ];
+                @endphp
+                @foreach ($platforms as $platform)
+                    <a
+                        href="{{ $platform['url'] }}"
+                        @if (!str_starts_with($platform['url'], 'mailto:')) target="_blank" rel="noopener" @endif
+                        class="group flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-5 transition hover:-translate-y-1 hover:border-indigo-400/40 hover:shadow-lg hover:shadow-indigo-500/5 dark:border-white/10 dark:bg-zinc-900"
+                    >
+                        <span class="grid size-11 shrink-0 place-items-center rounded-xl {{ $platform['badge'] }} shadow-sm transition group-hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-5">{!! $platform['icon'] !!}</svg>
+                        </span>
+                        <span class="min-w-0">
+                            <span class="block text-sm font-semibold text-zinc-900 dark:text-white">{{ $platform['name'] }}</span>
+                            <span class="block truncate text-xs text-zinc-500 dark:text-zinc-400">{{ $platform['subtitle'] }}</span>
+                        </span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="ml-auto size-4 shrink-0 text-zinc-300 transition group-hover:translate-x-0.5 group-hover:text-indigo-400 dark:text-zinc-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
     {{-- AI-Powered Development --}}
     @if ($aiService)
         <section class="reveal glow-gradient relative overflow-hidden border-t border-zinc-200 py-20 dark:border-white/10">
@@ -279,10 +340,11 @@
                                 ['icon' => '⚙️', 'title' => 'Workflow Automation', 'desc' => 'Automate orders, emails and repetitive store tasks.'],
                                 ['icon' => '🔌', 'title' => 'API Integrations', 'desc' => 'Connect your app to OpenAI, Claude, Gemini & Groq.'],
                                 ['icon' => '📈', 'title' => 'AI SEO & Content', 'desc' => 'Generate product copy, meta tags & keyword content.'],
+                                ['icon' => '🧩', 'title' => 'Custom AI Products', 'desc' => 'Design and build bespoke AI-powered tools and products from the ground up.', 'span' => true],
                             ];
                         @endphp
                         @foreach ($aiCards as $card)
-                            <div class="group rounded-2xl border border-zinc-200 bg-white p-5 transition hover:-translate-y-1 hover:border-indigo-400/40 hover:shadow-lg hover:shadow-indigo-500/10 dark:border-white/10 dark:bg-zinc-900">
+                            <div class="group rounded-2xl border border-zinc-200 bg-white p-5 transition hover:-translate-y-1 hover:border-indigo-400/40 hover:shadow-lg hover:shadow-indigo-500/10 dark:border-white/10 dark:bg-zinc-900 {{ $card['span'] ?? false ? 'col-span-2' : '' }}">
                                 <div class="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-indigo-500/15 via-violet-500/15 to-cyan-400/15 text-lg transition group-hover:scale-110">
                                     {{ $card['icon'] }}
                                 </div>
@@ -371,65 +433,6 @@
             </div>
         </section>
     @endif
-
-    {{-- Connect --}}
-    <section class="reveal border-t border-zinc-200 py-20 dark:border-white/10">
-        <div class="mx-auto max-w-6xl px-6">
-            <p class="text-center text-sm font-semibold uppercase tracking-widest text-indigo-500 dark:text-indigo-400">Where to Find Me</p>
-            <h2 class="mt-2 text-center text-2xl font-bold text-zinc-900 dark:text-white">Let's Connect</h2>
-
-            <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                @php
-                    $platforms = [
-                        [
-                            'name' => 'Fiverr',
-                            'subtitle' => '5★ · 200+ reviews',
-                            'url' => 'https://www.fiverr.com/aliyanfaisal',
-                            'badge' => 'bg-[#1dbf73]',
-                            'icon' => '<path d="M9 12.75L11.25 15 15 9.75" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="12" cy="12" r="9" stroke="white" stroke-width="2" fill="none"/>',
-                        ],
-                        [
-                            'name' => 'Upwork',
-                            'subtitle' => 'Top Rated Freelancer',
-                            'url' => 'https://www.upwork.com/freelancers/~01f763ee3322eda908',
-                            'badge' => 'bg-[#14a800]',
-                            'icon' => '<text x="12" y="16.5" text-anchor="middle" font-size="10.5" font-weight="700" fill="white" font-family="Arial, sans-serif">Up</text>',
-                        ],
-                        [
-                            'name' => 'LinkedIn',
-                            'subtitle' => 'Connect professionally',
-                            'url' => 'https://www.linkedin.com/in/aliyan-faisal-5162261b7/',
-                            'badge' => 'bg-[#0a66c2]',
-                            'icon' => '<path d="M6.94 8.5H4.56V19h2.38V8.5zM5.75 4.75a1.38 1.38 0 100 2.76 1.38 1.38 0 000-2.76zM19.44 19h-2.37v-5.4c0-1.29-.46-2.16-1.6-2.16-.88 0-1.4.59-1.63 1.16-.08.2-.1.49-.1.77V19H11.4s.03-9.6 0-10.5h2.37v1.49a2.35 2.35 0 012.13-1.18c1.56 0 2.73 1.02 2.73 3.2V19z" fill="white"/>',
-                        ],
-                        [
-                            'name' => 'Email',
-                            'subtitle' => 'aliyanfaisal15@gmail.com',
-                            'url' => 'mailto:aliyanfaisal15@gmail.com',
-                            'badge' => 'bg-indigo-500',
-                            'icon' => '<path d="M4 4h16v16H4z" stroke="white" stroke-width="2" fill="none" stroke-linejoin="round"/><path d="M22 6l-10 7L2 6" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
-                        ],
-                    ];
-                @endphp
-                @foreach ($platforms as $platform)
-                    <a
-                        href="{{ $platform['url'] }}"
-                        @if (!str_starts_with($platform['url'], 'mailto:')) target="_blank" rel="noopener" @endif
-                        class="group flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-5 transition hover:-translate-y-1 hover:border-indigo-400/40 hover:shadow-lg hover:shadow-indigo-500/5 dark:border-white/10 dark:bg-zinc-900"
-                    >
-                        <span class="grid size-11 shrink-0 place-items-center rounded-xl {{ $platform['badge'] }} shadow-sm transition group-hover:scale-110">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-5">{!! $platform['icon'] !!}</svg>
-                        </span>
-                        <span class="min-w-0">
-                            <span class="block text-sm font-semibold text-zinc-900 dark:text-white">{{ $platform['name'] }}</span>
-                            <span class="block truncate text-xs text-zinc-500 dark:text-zinc-400">{{ $platform['subtitle'] }}</span>
-                        </span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="ml-auto size-4 shrink-0 text-zinc-300 transition group-hover:translate-x-0.5 group-hover:text-indigo-400 dark:text-zinc-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
-                    </a>
-                @endforeach
-            </div>
-        </div>
-    </section>
 
     {{-- CTA --}}
     <section class="reveal py-20">

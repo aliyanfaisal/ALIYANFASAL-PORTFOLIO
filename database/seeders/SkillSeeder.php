@@ -33,6 +33,8 @@ class SkillSeeder extends Seeder
             ['name' => 'Elementor Pro', 'category' => 'CMS', 'proficiency' => 90],
             ['name' => 'Alpine.js', 'category' => 'Frontend', 'proficiency' => 85],
             ['name' => 'Nginx / Apache', 'category' => 'DevOps', 'proficiency' => 82],
+
+            ['name' => 'Security & Performance Optimization', 'category' => 'Security & Performance', 'proficiency' => 85],
         ];
 
         Skill::query()->delete();
