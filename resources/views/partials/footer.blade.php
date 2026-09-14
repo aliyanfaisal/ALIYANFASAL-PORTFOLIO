@@ -35,6 +35,8 @@
                             class="hover:text-indigo-500 dark:hover:text-indigo-400">Fiverr</a></li>
                     <li><a href="https://www.upwork.com/freelancers/~01f763ee3322eda908" target="_blank" rel="noopener"
                             class="hover:text-indigo-500 dark:hover:text-indigo-400">Upwork</a></li>
+                    <li><a href="https://www.linkedin.com/in/aliyan-faisal-5162261b7/" target="_blank" rel="noopener"
+                            class="hover:text-indigo-500 dark:hover:text-indigo-400">LinkedIn</a></li>
                     <li><a href="mailto:aliyanfaisal15@gmail.com"
                             class="hover:text-indigo-500 dark:hover:text-indigo-400">aliyanfaisal15@gmail.com</a></li>
                 </ul>
