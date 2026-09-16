@@ -8,9 +8,9 @@ on:
 
 env:
   REMOTE_PATH: /home/wowzario/aliyanfaisal.com
-  REMOTE_HOST: 66.29.148.72
-  REMOTE_PORT: 21098
-  REMOTE_USER: wowzario
+  REMOTE_HOST: ${{ vars.CPANEL_SSH_HOST }}
+  REMOTE_PORT: ${{ vars.CPANEL_SSH_PORT }}
+  REMOTE_USER: ${{ vars.CPANEL_SSH_USERNAME }}
 
 jobs:
   deploy:
