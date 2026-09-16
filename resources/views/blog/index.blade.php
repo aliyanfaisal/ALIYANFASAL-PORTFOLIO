@@ -1,23 +1,29 @@
 @php
-    $metaDescription = 'Articles on software development, web engineering, and building with AI from Aliyan Faisal.';
+    $pageTitle = $activeCategory ? $activeCategory->name.' Articles — Aliyan Faisal' : 'Blog — Aliyan Faisal';
+    $metaDescription = $activeCategory
+        ? "Articles about {$activeCategory->name} from Aliyan Faisal."
+        : 'Articles on software development, web engineering, and building with AI from Aliyan Faisal.';
+    $canonicalUrl = $activeCategory ? route('blog.category', $activeCategory) : route('blog.index');
 @endphp
-<x-layouts.app title="Blog — Aliyan Faisal" :description="$metaDescription">
+<x-layouts.app :title="$pageTitle" :description="$metaDescription">
     <x-slot:head>
-        <link rel="canonical" href="{{ route('blog.index') }}">
+        <link rel="canonical" href="{{ $canonicalUrl }}">
 
-        <meta property="og:title" content="Blog — Aliyan Faisal">
+        <meta property="og:title" content="{{ $pageTitle }}">
         <meta property="og:description" content="{{ $metaDescription }}">
-        <meta property="og:url" content="{{ route('blog.index') }}">
+        <meta property="og:url" content="{{ $canonicalUrl }}">
         <meta property="og:type" content="website">
 
         <meta name="twitter:card" content="summary">
-        <meta name="twitter:title" content="Blog — Aliyan Faisal">
+        <meta name="twitter:title" content="{{ $pageTitle }}">
         <meta name="twitter:description" content="{{ $metaDescription }}">
     </x-slot:head>
 
     <section class="mx-auto max-w-4xl px-6 py-16 text-center">
         <p class="text-sm font-semibold uppercase tracking-widest text-indigo-500 dark:text-indigo-400">Blog</p>
-        <h1 class="mt-3 text-4xl font-bold text-zinc-900 dark:text-white">Articles &amp; Insights</h1>
+        <h1 class="mt-3 text-4xl font-bold text-zinc-900 dark:text-white">
+            {{ $activeCategory ? $activeCategory->name : 'Articles & Insights' }}
+        </h1>
         <p class="mx-auto mt-4 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
             Notes on software development, tooling, and building things on the web.
         </p>
@@ -31,17 +37,14 @@
                     All
                 </a>
                 @foreach ($categories as $category)
-                    <a href="{{ route('blog.index', array_filter(['category' => $category->slug, 'q' => $search])) }}"
-                       class="rounded-full px-4 py-2 text-sm font-medium transition {{ $activeCategory === $category->slug ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900' : 'border border-zinc-300 text-zinc-600 hover:border-indigo-400 hover:text-indigo-500 dark:border-white/15 dark:text-zinc-300' }}">
+                    <a href="{{ route('blog.category', array_filter(['category' => $category->slug, 'q' => $search])) }}"
+                       class="rounded-full px-4 py-2 text-sm font-medium transition {{ $activeCategory?->id === $category->id ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900' : 'border border-zinc-300 text-zinc-600 hover:border-indigo-400 hover:text-indigo-500 dark:border-white/15 dark:text-zinc-300' }}">
                         {{ $category->name }}
                     </a>
                 @endforeach
             </div>
 
-            <form action="{{ route('blog.index') }}" method="GET" class="relative w-full md:w-72">
-                @if ($activeCategory)
-                    <input type="hidden" name="category" value="{{ $activeCategory }}">
-                @endif
+            <form action="{{ $activeCategory ? route('blog.category', $activeCategory) : route('blog.index') }}" method="GET" class="relative w-full md:w-72">
                 <svg xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 <input
                     type="search"

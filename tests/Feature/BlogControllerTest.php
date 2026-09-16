@@ -41,7 +41,7 @@ class BlogControllerTest extends TestCase
             ->assertDontSee('Future Post');
     }
 
-    public function test_index_filters_by_category(): void
+    public function test_category_page_filters_posts_by_the_given_category(): void
     {
         $laravel = Category::create(['name' => 'Laravel', 'slug' => 'laravel']);
         $wordpress = Category::create(['name' => 'WordPress', 'slug' => 'wordpress']);
@@ -62,10 +62,40 @@ class BlogControllerTest extends TestCase
         ]);
         $wordpressPost->categories()->attach($wordpress);
 
-        $this->get('/blog?category=laravel')
+        $this->get('/blog/category/laravel')
             ->assertOk()
             ->assertSee('Laravel Tips')
             ->assertDontSee('WordPress Tips');
+    }
+
+    public function test_category_page_returns_404_for_an_unknown_category_slug(): void
+    {
+        $this->get('/blog/category/does-not-exist')->assertNotFound();
+    }
+
+    public function test_index_no_longer_filters_by_a_category_query_string(): void
+    {
+        $laravel = Category::create(['name' => 'Laravel', 'slug' => 'laravel']);
+
+        $laravelPost = BlogPost::create([
+            'title' => 'Laravel Tips',
+            'slug' => 'laravel-tips',
+            'body' => 'Body',
+            'published_at' => now()->subDay(),
+        ]);
+        $laravelPost->categories()->attach($laravel);
+
+        $otherPost = BlogPost::create([
+            'title' => 'Unrelated Post',
+            'slug' => 'unrelated-post',
+            'body' => 'Body',
+            'published_at' => now()->subDay(),
+        ]);
+
+        $this->get('/blog?category=laravel')
+            ->assertOk()
+            ->assertSee('Laravel Tips')
+            ->assertSee('Unrelated Post');
     }
 
     public function test_index_filters_by_search_query(): void

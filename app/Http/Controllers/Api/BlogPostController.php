@@ -52,7 +52,7 @@ class BlogPostController extends Controller
         $post = BlogPost::create([
             'title' => $data['title'],
             'slug' => $slug,
-            'excerpt' => $data['excerpt'] ?? Str::limit(trim(preg_replace('/\s+/', ' ', $data['body'])), 160, ''),
+            'excerpt' => $data['excerpt'] ?? $this->deriveExcerpt($data['body']),
             'body' => $data['body'],
             'image_path' => $imagePath,
             'published_at' => $autoApprove ? ($data['published_at'] ?? now()) : null,
@@ -90,6 +90,19 @@ class BlogPostController extends Controller
                 ['name' => $name],
             )->id)
             ->all();
+    }
+
+    /**
+     * Derive a plain-text excerpt from Markdown body content.
+     */
+    private function deriveExcerpt(string $body): string
+    {
+        $html = Str::markdown($body, [
+            'html_input' => 'strip',
+            'allow_unsafe_links' => false,
+        ]);
+
+        return Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags($html))), 160, '');
     }
 
     private function generateUniqueSlug(string $title): string

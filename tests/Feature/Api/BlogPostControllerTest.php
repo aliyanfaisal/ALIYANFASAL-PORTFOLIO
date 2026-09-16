@@ -81,6 +81,21 @@ class BlogPostControllerTest extends TestCase
         $this->assertNull($post->published_at);
     }
 
+    public function test_it_derives_a_plain_text_excerpt_from_markdown_body(): void
+    {
+        $response = $this->postJson('/api/blog-posts', [
+            'title' => 'Markdown Excerpt',
+            'body' => "## Heading\n\nSome **bold** text with a ```code``` span.",
+        ], $this->headers());
+
+        $response->assertStatus(201);
+
+        $post = BlogPost::where('slug', 'markdown-excerpt')->firstOrFail();
+        $this->assertStringNotContainsString('##', $post->excerpt);
+        $this->assertStringNotContainsString('**', $post->excerpt);
+        $this->assertStringContainsString('Heading', $post->excerpt);
+    }
+
     public function test_it_generates_a_unique_slug_on_collision(): void
     {
         BlogPost::create(['title' => 'Dup', 'slug' => 'dup', 'body' => 'x', 'published_at' => now()]);

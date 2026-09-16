@@ -5,10 +5,15 @@
         : asset('images/aliyan-headshot-cutout.png');
     $ogImage = $post->image_path ? asset('storage/'.$post->image_path) : $fallbackOgImage;
     $postUrl = url('/blog/'.$post->slug);
-    $metaDescription = \Illuminate\Support\Str::limit($post->excerpt ?: strip_tags($post->body), 160);
+    $metaDescription = \Illuminate\Support\Str::limit(
+        $post->excerpt ?: trim(preg_replace('/\s+/', ' ', strip_tags($post->body_html))),
+        160,
+    );
 @endphp
 <x-layouts.app :title="$post->title.' — '.$settings->site_name" :description="$metaDescription">
     <x-slot:head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+
         <link rel="canonical" href="{{ $postUrl }}">
 
         <meta property="og:title" content="{{ $post->title }}">
@@ -54,7 +59,7 @@
         @if ($post->categories->isNotEmpty())
             <div class="flex flex-wrap gap-2">
                 @foreach ($post->categories as $category)
-                    <a href="{{ route('blog.index', ['category' => $category->slug]) }}" class="rounded-full bg-indigo-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-indigo-500 transition hover:bg-indigo-500/20 dark:text-indigo-400">{{ $category->name }}</a>
+                    <a href="{{ route('blog.category', $category) }}" class="rounded-full bg-indigo-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-indigo-500 transition hover:bg-indigo-500/20 dark:text-indigo-400">{{ $category->name }}</a>
                 @endforeach
             </div>
         @endif
@@ -74,11 +79,8 @@
             <img src="{{ asset('storage/'.$post->image_path) }}" alt="{{ $post->title }}" class="mt-8 w-full rounded-2xl">
         @endif
 
-        <div class="mt-8 space-y-5 text-lg leading-relaxed text-zinc-700 dark:text-zinc-300">
-            @foreach (explode("\n", trim($post->body)) as $paragraph)
-                @continue(trim($paragraph) === '')
-                <p>{{ $paragraph }}</p>
-            @endforeach
+        <div class="prose dark:prose-invert prose-zinc mt-8 max-w-none prose-a:text-indigo-500 dark:prose-a:text-indigo-400">
+            {!! $post->body_html !!}
         </div>
 
         @if ($post->tags->isNotEmpty())
@@ -115,4 +117,7 @@
             </button>
         </div>
     </article>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
 </x-layouts.app>

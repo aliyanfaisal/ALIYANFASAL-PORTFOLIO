@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Str;
 
 class BlogPost extends Model
 {
@@ -19,6 +21,17 @@ class BlogPost extends Model
     public function scopePublished(Builder $query): void
     {
         $query->whereNotNull('published_at')->where('published_at', '<=', now());
+    }
+
+    /**
+     * The post body converted from Markdown to safe HTML.
+     */
+    protected function bodyHtml(): Attribute
+    {
+        return Attribute::get(fn (): string => Str::markdown($this->body, [
+            'html_input' => 'strip',
+            'allow_unsafe_links' => false,
+        ]));
     }
 
     public function categories(): BelongsToMany
