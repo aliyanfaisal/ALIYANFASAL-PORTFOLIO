@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\LinkedInApiException;
 use App\Models\LinkedInToken;
 use App\Services\LinkedInService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Throwable;
 
 class LinkedInAuthController extends Controller
 {
@@ -49,15 +52,25 @@ class LinkedInAuthController extends Controller
             abort(400, 'LinkedIn did not return an authorization code.');
         }
 
-        $tokenData = $linkedIn->exchangeAuthorizationCode($request->query('code'));
-        $memberUrn = $linkedIn->fetchMemberUrn($tokenData['access_token']);
+        try {
+            $tokenData = $linkedIn->exchangeAuthorizationCode($request->query('code'));
+            $memberUrn = $linkedIn->fetchMemberUrn($tokenData['access_token']);
 
-        LinkedInToken::store([
-            'access_token' => $tokenData['access_token'],
-            'refresh_token' => $tokenData['refresh_token'] ?? null,
-            'expires_at' => now()->addSeconds($tokenData['expires_in']),
-            'member_urn' => $memberUrn,
-        ]);
+            LinkedInToken::store([
+                'access_token' => $tokenData['access_token'],
+                'refresh_token' => $tokenData['refresh_token'] ?? null,
+                'expires_at' => now()->addSeconds($tokenData['expires_in']),
+                'member_urn' => $memberUrn,
+            ]);
+        } catch (LinkedInApiException $e) {
+            Log::error('LinkedIn OAuth connect failed', ['status' => $e->status, 'response' => $e->responseBody]);
+
+            return "LinkedIn connect failed ({$e->status}): ".(is_array($e->responseBody) ? json_encode($e->responseBody) : $e->responseBody);
+        } catch (Throwable $e) {
+            Log::error('LinkedIn OAuth connect failed', ['message' => $e->getMessage()]);
+
+            return 'LinkedIn connect failed: '.$e->getMessage();
+        }
 
         return 'LinkedIn connected successfully.';
     }

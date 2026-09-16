@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class LinkedInToken extends Model
 {
+    protected $table = 'linkedin_tokens';
+
     protected $fillable = [
         'access_token', 'refresh_token', 'expires_at', 'member_urn',
     ];
