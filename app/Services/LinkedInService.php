@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Http;
 
 class LinkedInService
 {
-    private const API_VERSION = '202508';
+    private const API_VERSION = '202609';
 
     /**
      * Exchange an OAuth authorization code for an access token.
