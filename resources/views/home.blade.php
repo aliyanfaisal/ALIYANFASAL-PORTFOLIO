@@ -128,7 +128,7 @@
             <div class="overflow-hidden">
                 <div class="animate-marquee flex w-max items-center gap-12 text-sm font-medium text-zinc-400 dark:text-zinc-500">
                     @php
-                        $stack = ['Laravel', 'WordPress', 'WooCommerce', 'OpenAI', 'Claude', 'Gemini', 'Groq', 'Tailwind CSS', 'MySQL', 'REST APIs', 'Elementor Pro', 'Vue / React'];
+                        $stack = ['Laravel', 'WordPress', 'WooCommerce', 'OpenAI', 'Claude', 'Gemini', 'Groq', 'Tailwind CSS', 'MySQL', 'REST APIs', 'Elementor Pro', 'React / Node.js / Next.js'];
                         $stack = array_merge($stack, $stack);
                     @endphp
                     @foreach ($stack as $tech)

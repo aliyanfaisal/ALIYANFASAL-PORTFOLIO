@@ -13,19 +13,18 @@ class SkillSeeder extends Seeder
             ['name' => 'PHP / Laravel', 'category' => 'Backend', 'proficiency' => 95],
             ['name' => 'AI Integration (OpenAI, Claude, Gemini, Groq)', 'category' => 'AI & Automation', 'proficiency' => 90],
             ['name' => 'WordPress', 'category' => 'CMS', 'proficiency' => 90],
-            ['name' => 'Tailwind CSS / Bootstrap', 'category' => 'Frontend', 'proficiency' => 85],
+            ['name' => 'JavaScript / jQuery / React / Node.js / Next.js', 'category' => 'Frontend', 'proficiency' => 75],
             ['name' => 'Server Configuration & Linux', 'category' => 'DevOps', 'proficiency' => 80],
 
             ['name' => 'REST & GraphQL APIs', 'category' => 'Backend', 'proficiency' => 90],
             ['name' => 'AI Workflow Automation', 'category' => 'AI & Automation', 'proficiency' => 85],
             ['name' => 'WooCommerce', 'category' => 'CMS', 'proficiency' => 88],
-            ['name' => 'JavaScript / jQuery / Vue', 'category' => 'Frontend', 'proficiency' => 75],
+            ['name' => 'Tailwind CSS / Bootstrap', 'category' => 'Frontend', 'proficiency' => 85],
             ['name' => 'Git & Version Control', 'category' => 'DevOps', 'proficiency' => 90],
 
             ['name' => 'Debugging', 'category' => 'Backend', 'proficiency' => 92],
             ['name' => 'AI Chatbot Development', 'category' => 'AI & Automation', 'proficiency' => 88],
             ['name' => 'WordPress Plugin Development', 'category' => 'CMS', 'proficiency' => 90],
-            ['name' => 'React', 'category' => 'Frontend', 'proficiency' => 70],
             ['name' => 'CI/CD & Deployment', 'category' => 'DevOps', 'proficiency' => 80],
 
             ['name' => 'MySQL', 'category' => 'Backend', 'proficiency' => 88],
