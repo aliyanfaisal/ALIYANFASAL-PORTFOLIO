@@ -34,23 +34,28 @@
                 <ul class="mt-3 space-y-2 text-sm text-zinc-500 dark:text-zinc-400">
                     @if ($settings->github_url)
                         <li><a href="{{ $settings->github_url }}" target="_blank" rel="noopener"
-                                class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon name="github" class="size-4" /> GitHub</a></li>
+                                class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon
+                                    name="github" class="size-4" /> GitHub</a></li>
                     @endif
                     @if ($settings->fiverr_url)
                         <li><a href="{{ $settings->fiverr_url }}" target="_blank" rel="noopener"
-                                class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon name="fiverr" class="size-4" /> Fiverr</a></li>
+                                class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon
+                                    name="fiverr" class="size-4" /> Fiverr</a></li>
                     @endif
                     @if ($settings->upwork_url)
                         <li><a href="{{ $settings->upwork_url }}" target="_blank" rel="noopener"
-                                class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon name="upwork" class="size-4" /> Upwork</a></li>
+                                class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon
+                                    name="upwork" class="size-4" /> Upwork</a></li>
                     @endif
                     @if ($settings->linkedin_url)
                         <li><a href="{{ $settings->linkedin_url }}" target="_blank" rel="noopener"
-                                class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon name="linkedin" class="size-4" /> LinkedIn</a></li>
+                                class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon
+                                    name="linkedin" class="size-4" /> LinkedIn</a></li>
                     @endif
                     @if ($settings->contact_email)
                         <li><a href="mailto:{{ $settings->contact_email }}"
-                                class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-icon name="envelope" class="size-4" /> {{ $settings->contact_email }}</a></li>
+                                class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-icon
+                                    name="envelope" class="size-4" /> {{ $settings->contact_email }}</a></li>
                     @endif
                 </ul>
             </div>
@@ -59,7 +64,7 @@
         <div
             class="mt-10 flex flex-col items-center justify-between gap-4 border-t border-zinc-200 pt-6 text-xs text-zinc-400 dark:border-white/10 sm:flex-row">
             <p>&copy; {{ date('Y') }} {{ $settings->site_name }}. All rights reserved.</p>
-            <p>Built with Laravel &amp; Tailwind CSS.</p>
+            <!-- <p>Built with Laravel &amp; Tailwind CSS.</p> -->
         </div>
     </div>
 </footer>
