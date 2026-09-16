@@ -105,6 +105,21 @@ class BlogControllerTest extends TestCase
             ->assertSee($post->title);
     }
 
+    public function test_show_increments_the_view_count(): void
+    {
+        $post = BlogPost::create([
+            'title' => 'Published Post',
+            'slug' => 'published-post',
+            'body' => 'Body',
+            'published_at' => now()->subDay(),
+        ]);
+
+        $this->get('/blog/'.$post->slug);
+        $this->get('/blog/'.$post->slug);
+
+        $this->assertSame(2, $post->fresh()->views);
+    }
+
     public function test_show_returns_404_for_an_unpublished_post(): void
     {
         $post = BlogPost::create([

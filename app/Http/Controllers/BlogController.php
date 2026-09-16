@@ -43,6 +43,8 @@ class BlogController extends Controller
             ->with(['categories', 'tags'])
             ->firstOrFail();
 
+        $post->increment('views');
+
         return view('blog.show', ['post' => $post]);
     }
 }

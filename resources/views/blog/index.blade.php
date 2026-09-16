@@ -1,9 +1,25 @@
-<x-layouts.app title="Blog — Aliyan Faisal" description="Articles on Laravel, WordPress, WooCommerce and AI-powered web development from Aliyan Faisal.">
+@php
+    $metaDescription = 'Articles on software development, web engineering, and building with AI from Aliyan Faisal.';
+@endphp
+<x-layouts.app title="Blog — Aliyan Faisal" :description="$metaDescription">
+    <x-slot:head>
+        <link rel="canonical" href="{{ route('blog.index') }}">
+
+        <meta property="og:title" content="Blog — Aliyan Faisal">
+        <meta property="og:description" content="{{ $metaDescription }}">
+        <meta property="og:url" content="{{ route('blog.index') }}">
+        <meta property="og:type" content="website">
+
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Blog — Aliyan Faisal">
+        <meta name="twitter:description" content="{{ $metaDescription }}">
+    </x-slot:head>
+
     <section class="mx-auto max-w-4xl px-6 py-16 text-center">
         <p class="text-sm font-semibold uppercase tracking-widest text-indigo-500 dark:text-indigo-400">Blog</p>
         <h1 class="mt-3 text-4xl font-bold text-zinc-900 dark:text-white">Articles &amp; Insights</h1>
         <p class="mx-auto mt-4 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
-            Notes on Laravel, WordPress, WooCommerce and building AI-powered web products.
+            Notes on software development, tooling, and building things on the web.
         </p>
     </section>
 

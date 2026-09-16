@@ -37,6 +37,12 @@
             <p class="mt-2 line-clamp-2 flex-1 text-sm text-zinc-500 dark:text-zinc-400">{{ $post->excerpt }}</p>
         @endif
 
-        <p class="mt-4 text-xs text-zinc-400">{{ $post->published_at->format('F j, Y') }}</p>
+        <div class="mt-4 flex items-center gap-3 text-xs text-zinc-400">
+            <span>{{ $post->published_at->format('F j, Y') }}</span>
+            <span class="inline-flex items-center gap-1">
+                <x-icon name="eye" class="size-3.5" />
+                {{ number_format($post->views) }}
+            </span>
+        </div>
     </div>
 </a>
