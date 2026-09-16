@@ -19,6 +19,12 @@
         })();
     </script>
 
+    @production
+        <!-- Cloudflare Web Analytics -->
+        <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "abd1fd4bee9c4bbe901abeab02da68bb"}'></script>
+        <!-- End Cloudflare Web Analytics -->
+    @endproduction
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
