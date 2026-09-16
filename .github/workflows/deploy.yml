@@ -41,22 +41,22 @@ jobs:
       - name: Deploy files via rsync over SSH
         uses: burnett01/rsync-deployments@7.0.2
         with:
-          switches: -avzr --delete
-          exclude: |
-            .git*
-            .github/
-            node_modules/
-            tests/
-            .env
-            .env.example
-            storage/app/
-            storage/framework/cache/
-            storage/framework/sessions/
-            storage/framework/views/
-            storage/logs/
-            public/storage
-            .htaccess
-            phulkiee/
+          switches: >-
+            -avzr --delete
+            --exclude=.git*
+            --exclude=.github/
+            --exclude=node_modules/
+            --exclude=tests/
+            --exclude=.env
+            --exclude=.env.example
+            --exclude=storage/app/
+            --exclude=storage/framework/cache/
+            --exclude=storage/framework/sessions/
+            --exclude=storage/framework/views/
+            --exclude=storage/logs/
+            --exclude=public/storage
+            --exclude=.htaccess
+            --exclude=phulkiee/
           path: ./
           remote_path: ${{ env.REMOTE_PATH }}
           remote_host: ${{ secrets.CPANEL_SSH_HOST }}
