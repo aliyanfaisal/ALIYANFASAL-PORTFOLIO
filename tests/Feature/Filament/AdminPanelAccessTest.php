@@ -36,5 +36,6 @@ class AdminPanelAccessTest extends TestCase
         $this->get('/admin/tags')->assertOk();
         $this->get('/admin/tags/create')->assertOk();
         $this->get('/admin/settings')->assertOk();
+        $this->get('/admin/newsletter-subscribers')->assertOk();
     }
 }
