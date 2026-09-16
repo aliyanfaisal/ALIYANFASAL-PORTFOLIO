@@ -6,6 +6,7 @@ use App\Models\Setting;
 use BackedEnum;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas\Components\Section;
@@ -51,6 +52,13 @@ class Settings extends Page
                         TextInput::make('contact_email')
                             ->email()
                             ->maxLength(255),
+                    ]),
+                Section::make('Blog API')
+                    ->schema([
+                        Toggle::make('auto_approve_posts')
+                            ->label('Auto-approve posts from the API')
+                            ->helperText('When on, posts submitted via POST /api/blog-posts go live immediately (or at their given "published_at"). When off, they are saved as drafts for you to review and publish manually from the Posts screen.')
+                            ->default(true),
                     ]),
                 Section::make('Social links')
                     ->schema([

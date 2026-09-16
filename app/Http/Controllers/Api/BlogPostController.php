@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\BlogPost;
 use App\Models\Category;
+use App\Models\Setting;
 use App\Models\Tag;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\JsonResponse;
@@ -46,13 +47,15 @@ class BlogPostController extends Controller
             $imagePath = $this->downloadImage($data['image_url'], $slug);
         }
 
+        $autoApprove = Setting::current()->auto_approve_posts;
+
         $post = BlogPost::create([
             'title' => $data['title'],
             'slug' => $slug,
             'excerpt' => $data['excerpt'] ?? Str::limit(trim(preg_replace('/\s+/', ' ', $data['body'])), 160, ''),
             'body' => $data['body'],
             'image_path' => $imagePath,
-            'published_at' => $data['published_at'] ?? now(),
+            'published_at' => $autoApprove ? ($data['published_at'] ?? now()) : null,
         ]);
 
         $post->categories()->sync($this->resolveTerms(Category::class, $data['categories'] ?? []));
@@ -60,6 +63,7 @@ class BlogPostController extends Controller
 
         return response()->json([
             'id' => $post->id,
+            'status' => $autoApprove ? 'published' : 'pending_review',
             'url' => url('/blog/'.$post->slug),
             'image_url' => $post->image_path ? asset('storage/'.$post->image_path) : null,
             'slug' => $post->slug,

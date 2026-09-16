@@ -8,7 +8,11 @@ class Setting extends Model
 {
     protected $fillable = [
         'site_name', 'site_description', 'default_og_image', 'contact_email',
-        'github_url', 'linkedin_url', 'fiverr_url', 'upwork_url',
+        'auto_approve_posts', 'github_url', 'linkedin_url', 'fiverr_url', 'upwork_url',
+    ];
+
+    protected $casts = [
+        'auto_approve_posts' => 'boolean',
     ];
 
     public static function current(): self
