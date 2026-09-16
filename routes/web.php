@@ -26,3 +26,8 @@ Route::post('/newsletter', [NewsletterController::class, 'store'])->name('newsle
 
 Route::get('/auth/linkedin', [LinkedInAuthController::class, 'redirect'])->name('auth.linkedin.redirect');
 Route::get('/auth/linkedin/callback', [LinkedInAuthController::class, 'callback'])->name('auth.linkedin.callback');
+
+// Routes unmatched by any of the above never run through the `web` middleware group (session,
+// $errors sharing, etc.), since middleware only applies once a route is matched. Falling back to
+// an explicit route inside the group ensures the 404 page renders with a fully booted request.
+Route::fallback(fn () => abort(404));
