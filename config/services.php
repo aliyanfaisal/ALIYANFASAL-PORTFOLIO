@@ -40,4 +40,8 @@ return [
         'token' => env('GITHUB_TOKEN'),
     ],
 
+    'blog_api' => [
+        'token' => env('BLOG_API_TOKEN'),
+    ],
+
 ];

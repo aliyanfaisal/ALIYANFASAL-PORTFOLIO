@@ -1,0 +1,83 @@
+name: Deploy to cPanel
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  REMOTE_PATH: /home/wowzario/aliyanfaisal.com
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+
+      - name: Install PHP dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Build frontend assets
+        run: npm run build
+
+      - name: Deploy files via rsync over SSH
+        uses: burnett01/rsync-deployments@7.0.2
+        with:
+          switches: -avzr --delete
+          exclude: |
+            .git*
+            .github/
+            node_modules/
+            tests/
+            .env
+            .env.example
+            storage/app/
+            storage/framework/cache/
+            storage/framework/sessions/
+            storage/framework/views/
+            storage/logs/
+            public/storage
+            .htaccess
+            phulkiee/
+          path: ./
+          remote_path: ${{ env.REMOTE_PATH }}
+          remote_host: ${{ secrets.CPANEL_SSH_HOST }}
+          remote_port: ${{ secrets.CPANEL_SSH_PORT }}
+          remote_user: ${{ secrets.CPANEL_SSH_USERNAME }}
+          remote_key: ${{ secrets.CPANEL_SSH_KEY }}
+          remote_key_pass: ${{ secrets.CPANEL_SSH_KEY_PASSPHRASE }}
+
+      - name: Run post-deploy commands on server
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.CPANEL_SSH_HOST }}
+          port: ${{ secrets.CPANEL_SSH_PORT }}
+          username: ${{ secrets.CPANEL_SSH_USERNAME }}
+          key: ${{ secrets.CPANEL_SSH_KEY }}
+          passphrase: ${{ secrets.CPANEL_SSH_KEY_PASSPHRASE }}
+          script: |
+            cd ${{ env.REMOTE_PATH }}
+            php artisan storage:link || true
+            php artisan migrate --force
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan queue:restart || true

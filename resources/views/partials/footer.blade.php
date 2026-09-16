@@ -1,10 +1,13 @@
+@php
+    $settings = \App\Models\Setting::current();
+@endphp
 <footer class="border-t border-zinc-200 dark:border-white/10">
     <div class="mx-auto max-w-6xl px-6 py-12">
         <div class="grid grid-cols-1 gap-10 md:grid-cols-3">
             <div>
                 <a href="{{ route('home') }}"
                     class="text-lg font-semibold tracking-tight text-zinc-900 dark:text-white">
-                    ALIYAN FAISAL<span class="text-gradient">.</span>
+                    {{ strtoupper($settings->site_name) }}<span class="text-gradient">.</span>
                 </a>
                 <p class="mt-3 max-w-xs text-sm text-zinc-500 dark:text-zinc-400">
                     Full-stack developer building Laravel, WordPress and AI-powered web applications for clients
@@ -29,23 +32,33 @@
             <div>
                 <h3 class="text-sm font-semibold text-zinc-900 dark:text-white">Connect</h3>
                 <ul class="mt-3 space-y-2 text-sm text-zinc-500 dark:text-zinc-400">
-                    <li><a href="https://github.com/aliyanfaisal" target="_blank" rel="noopener"
-                            class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon name="github" class="size-4" /> GitHub</a></li>
-                    <li><a href="https://www.fiverr.com/aliyanfaisal" target="_blank" rel="noopener"
-                            class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon name="fiverr" class="size-4" /> Fiverr</a></li>
-                    <li><a href="https://www.upwork.com/freelancers/~01f763ee3322eda908" target="_blank" rel="noopener"
-                            class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon name="upwork" class="size-4" /> Upwork</a></li>
-                    <li><a href="https://www.linkedin.com/in/aliyan-faisal-5162261b7/" target="_blank" rel="noopener"
-                            class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon name="linkedin" class="size-4" /> LinkedIn</a></li>
-                    <li><a href="mailto:aliyanfaisal15@gmail.com"
-                            class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-icon name="envelope" class="size-4" /> aliyanfaisal15@gmail.com</a></li>
+                    @if ($settings->github_url)
+                        <li><a href="{{ $settings->github_url }}" target="_blank" rel="noopener"
+                                class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon name="github" class="size-4" /> GitHub</a></li>
+                    @endif
+                    @if ($settings->fiverr_url)
+                        <li><a href="{{ $settings->fiverr_url }}" target="_blank" rel="noopener"
+                                class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon name="fiverr" class="size-4" /> Fiverr</a></li>
+                    @endif
+                    @if ($settings->upwork_url)
+                        <li><a href="{{ $settings->upwork_url }}" target="_blank" rel="noopener"
+                                class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon name="upwork" class="size-4" /> Upwork</a></li>
+                    @endif
+                    @if ($settings->linkedin_url)
+                        <li><a href="{{ $settings->linkedin_url }}" target="_blank" rel="noopener"
+                                class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-brand-icon name="linkedin" class="size-4" /> LinkedIn</a></li>
+                    @endif
+                    @if ($settings->contact_email)
+                        <li><a href="mailto:{{ $settings->contact_email }}"
+                                class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-icon name="envelope" class="size-4" /> {{ $settings->contact_email }}</a></li>
+                    @endif
                 </ul>
             </div>
         </div>
 
         <div
             class="mt-10 flex flex-col items-center justify-between gap-4 border-t border-zinc-200 pt-6 text-xs text-zinc-400 dark:border-white/10 sm:flex-row">
-            <p>&copy; {{ date('Y') }} Aliyan Faisal. All rights reserved.</p>
+            <p>&copy; {{ date('Y') }} {{ $settings->site_name }}. All rights reserved.</p>
             <p>Built with Laravel &amp; Tailwind CSS.</p>
         </div>
     </div>

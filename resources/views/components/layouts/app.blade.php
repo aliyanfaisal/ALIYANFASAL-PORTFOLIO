@@ -10,6 +10,8 @@
         content="{{ $description ?? 'Aliyan Faisal is a full-stack web developer specializing in Laravel, WordPress, WooCommerce and AI-powered web applications.' }}">
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
 
+    {{ $head ?? '' }}
+
     <script>
         (function () {
             var theme = localStorage.getItem('theme') || 'dark';
