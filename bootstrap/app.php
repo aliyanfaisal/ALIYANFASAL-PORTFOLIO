@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\RemoveXPoweredByHeader;
 use App\Http\Middleware\VerifyBlogApiToken;
+use App\Http\Middleware\VerifyLinkedInApiToken;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -19,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'blog.api.token' => VerifyBlogApiToken::class,
+            'linkedin.api.token' => VerifyLinkedInApiToken::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

@@ -44,4 +44,12 @@ return [
         'token' => env('BLOG_API_TOKEN'),
     ],
 
+    'linkedin' => [
+        'client_id' => env('LINKEDIN_CLIENT_ID'),
+        'client_secret' => env('LINKEDIN_CLIENT_SECRET'),
+        'redirect_uri' => env('LINKEDIN_REDIRECT_URI'),
+        'connect_key' => env('LINKEDIN_CONNECT_KEY'),
+        'api_token' => env('LINKEDIN_API_TOKEN'),
+    ],
+
 ];
