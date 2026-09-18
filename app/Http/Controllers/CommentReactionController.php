@@ -38,8 +38,12 @@ class CommentReactionController extends Controller
         }
 
         if ($request->wantsJson()) {
+            $counts = $comment->reactions()->selectRaw('emoji, count(*) as count')->groupBy('emoji')->pluck('count', 'emoji');
+
             return response()->json([
-                'counts' => $comment->reactions()->selectRaw('emoji, count(*) as count')->groupBy('emoji')->pluck('count', 'emoji'),
+                // Cast to an object so an empty result serializes as {} rather than [],
+                // which would otherwise corrupt the shape the frontend expects back.
+                'counts' => (object) $counts->all(),
                 'mine' => $comment->reactions()->where('session_id', $sessionId)->value('emoji'),
             ]);
         }

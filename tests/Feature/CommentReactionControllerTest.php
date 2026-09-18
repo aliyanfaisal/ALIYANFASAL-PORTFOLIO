@@ -86,6 +86,11 @@ class CommentReactionControllerTest extends TestCase
 
         $response->assertOk()->assertJson(['mine' => null]);
         $this->assertDatabaseCount('comment_reactions', 0);
+
+        // json_decode() can't distinguish {} from [], so assert the raw body: an empty PHP
+        // array must still serialize as a JSON object, or the frontend's `counts['emoji']`
+        // lookups break once every reaction on a comment has been toggled off.
+        $this->assertStringContainsString('"counts":{}', $response->getContent());
     }
 
     public function test_store_switches_to_a_different_reaction(): void

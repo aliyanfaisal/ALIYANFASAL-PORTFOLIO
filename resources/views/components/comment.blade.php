@@ -3,7 +3,9 @@
 @php
     $sessionId = session()->getId();
     $isOwner = $comment->isOwnedBySession($sessionId);
-    $reactionCounts = $comment->reactions->groupBy('emoji')->map->count();
+    // Cast to an object so an empty result serializes as {} rather than [] — a bare [] would
+    // give the Alpine component's `counts` an array shape instead of the object one it expects.
+    $reactionCounts = (object) $comment->reactions->groupBy('emoji')->map->count()->all();
     $myReaction = $comment->reactions->firstWhere('session_id', $sessionId)?->emoji;
 
     $editBag = "comment-edit-{$comment->id}";
@@ -44,8 +46,8 @@
                         },
                         body: JSON.stringify({ emoji }),
                     })
-                        .then((response) => response.json())
-                        .then((data) => { this.counts = data.counts; this.mine = data.mine; })
+                        .then((response) => response.ok ? response.json() : Promise.reject())
+                        .then((data) => { this.counts = data.counts ?? {}; this.mine = data.mine ?? null; })
                         .catch(() => {});
                 },
             }"
