@@ -24,7 +24,7 @@ class BlogController extends Controller
     {
         $post = BlogPost::published()
             ->where('slug', $slug)
-            ->with(['categories', 'tags'])
+            ->with(['categories', 'tags', 'comments'])
             ->firstOrFail();
 
         $post->increment('views');
@@ -37,7 +37,7 @@ class BlogController extends Controller
         $search = trim((string) $request->query('q'));
 
         $posts = $this->postsQuery($category, $search)
-            ->paginate(9)
+            ->paginate(15)
             ->withQueryString();
 
         return view('blog.index', [

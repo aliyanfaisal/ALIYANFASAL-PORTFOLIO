@@ -31,7 +31,7 @@
 
     <section class="mx-auto max-w-6xl px-6 pb-20">
         <div class="flex flex-col gap-6 border-b border-zinc-200 pb-8 dark:border-white/10 md:flex-row md:items-center md:justify-between">
-            <div class="flex flex-wrap gap-2">
+            <div class="flex min-w-0 flex-wrap gap-2">
                 <a href="{{ route('blog.index', array_filter(['q' => $search])) }}"
                    class="rounded-full px-4 py-2 text-sm font-medium transition {{ ! $activeCategory ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900' : 'border border-zinc-300 text-zinc-600 hover:border-indigo-400 hover:text-indigo-500 dark:border-white/15 dark:text-zinc-300' }}">
                     All
@@ -44,14 +44,14 @@
                 @endforeach
             </div>
 
-            <form action="{{ $activeCategory ? route('blog.category', $activeCategory) : route('blog.index') }}" method="GET" class="relative w-full md:w-72">
-                <svg xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <form action="{{ $activeCategory ? route('blog.category', $activeCategory) : route('blog.index') }}" method="GET" class="relative w-full shrink-0 md:w-96">
+                <svg xmlns="http://www.w3.org/2000/svg" class="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 <input
                     type="search"
                     name="q"
                     value="{{ $search }}"
                     placeholder="Search articles..."
-                    class="w-full rounded-full border border-zinc-300 bg-white py-2.5 pl-10 pr-4 text-sm text-zinc-700 placeholder:text-zinc-400 focus:border-indigo-400 focus:outline-none dark:border-white/15 dark:bg-zinc-900 dark:text-zinc-200"
+                    class="w-full rounded-full border border-zinc-300 bg-white py-3.5 pl-12 pr-4 text-base text-zinc-700 placeholder:text-zinc-400 focus:border-indigo-400 focus:outline-none dark:border-white/15 dark:bg-zinc-900 dark:text-zinc-200"
                 >
             </form>
         </div>

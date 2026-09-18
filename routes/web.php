@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LinkedInAuthController;
@@ -16,6 +17,7 @@ Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap')
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/category/{category:slug}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::post('/blog/{slug}/comments', [CommentController::class, 'store'])->name('blog.comments.store');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/download', [ProjectController::class, 'downloadLinks'])->name('projects.download');

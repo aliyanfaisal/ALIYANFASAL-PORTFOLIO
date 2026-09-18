@@ -116,8 +116,66 @@
                 <svg x-show="copied" x-cloak xmlns="http://www.w3.org/2000/svg" class="size-4 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
             </button>
         </div>
+
+        <div id="comments" class="mt-14 border-t border-zinc-200 pt-10 dark:border-white/10">
+            <h2 class="text-xl font-bold text-zinc-900 dark:text-white">
+                {{ $post->comments->count() }} {{ \Illuminate\Support\Str::plural('Comment', $post->comments->count()) }}
+            </h2>
+
+            <div class="mt-8 space-y-6">
+                @forelse ($post->comments as $comment)
+                    <div class="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-white/10 dark:bg-zinc-900">
+                        <div class="flex items-center justify-between">
+                            <p class="font-semibold text-zinc-900 dark:text-white">{{ $comment->name }}</p>
+                            <time class="text-xs text-zinc-400">{{ $comment->created_at->format('F j, Y') }}</time>
+                        </div>
+                        <p class="mt-2 whitespace-pre-line text-sm text-zinc-600 dark:text-zinc-300">{{ $comment->body }}</p>
+                    </div>
+                @empty
+                    <p class="text-sm text-zinc-500 dark:text-zinc-400">No comments yet — be the first to share your thoughts.</p>
+                @endforelse
+            </div>
+
+            <form method="POST" action="{{ route('blog.comments.store', $post) }}#comments" class="mt-10 space-y-5 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-white/10 dark:bg-zinc-900">
+                @csrf
+
+                <h3 class="font-semibold text-zinc-900 dark:text-white">Leave a comment</h3>
+
+                <div class="grid gap-5 sm:grid-cols-2">
+                    <div>
+                        <label for="comment-name" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Name</label>
+                        <input type="text" name="name" id="comment-name" value="{{ old('name') }}" required
+                               class="mt-1.5 w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-white/15 dark:text-white">
+                        @error('name') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div>
+                        <label for="comment-email" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Email</label>
+                        <input type="email" name="email" id="comment-email" value="{{ old('email') }}" required
+                               class="mt-1.5 w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-white/15 dark:text-white">
+                        @error('email') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+                        <p class="mt-1 text-xs text-zinc-400">Never published.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="comment-body" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300">Comment</label>
+                    <textarea name="body" id="comment-body" rows="4" required
+                              class="mt-1.5 w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2 text-sm text-zinc-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-white/15 dark:text-white">{{ old('body') }}</textarea>
+                    @error('body') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
+                </div>
+
+                <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}"></div>
+                @error('cf-turnstile-response') <p class="text-xs text-red-500">{{ $message }}</p> @enderror
+
+                <button type="submit" class="w-full rounded-full bg-zinc-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-indigo-600 dark:bg-white dark:text-zinc-900 dark:hover:bg-indigo-400 sm:w-auto">
+                    Post Comment
+                </button>
+            </form>
+        </div>
     </article>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </x-layouts.app>

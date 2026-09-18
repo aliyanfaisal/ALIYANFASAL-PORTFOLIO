@@ -7,6 +7,7 @@
         ['label' => 'Blog', 'route' => 'blog.index'],
         ['label' => 'Contact', 'route' => 'contact.create'],
     ];
+    $settings = \App\Models\Setting::current();
 @endphp
 
 <header
@@ -19,9 +20,14 @@
 >
     <div class="mx-auto flex max-w-6xl items-center justify-center">
         <nav
-            class="flex w-full max-w-fit items-center gap-1 rounded-full border border-zinc-200/80 bg-white/90 px-2 py-2 shadow-lg shadow-zinc-900/10 backdrop-blur-xl transition-all duration-300 dark:border-white/10 dark:bg-zinc-900/90 dark:shadow-black/50 dark:ring-1 dark:ring-white/5"
+            class="flex w-full items-center gap-1 rounded-full border border-zinc-200/80 bg-white/90 px-2 py-2 shadow-lg shadow-zinc-900/10 backdrop-blur-xl transition-all duration-300 md:w-auto md:max-w-fit dark:border-white/10 dark:bg-zinc-900/90 dark:shadow-black/50 dark:ring-1 dark:ring-white/5"
             :class="scrolled ? 'shadow-xl dark:shadow-black/70' : ''"
         >
+            <button @click="mobileOpen = !mobileOpen" type="button" class="grid size-9 shrink-0 place-items-center rounded-full text-zinc-600 transition hover:bg-zinc-900/5 md:hidden dark:text-zinc-300 dark:hover:bg-white/10" aria-label="Toggle menu">
+                <svg x-show="!mobileOpen" xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <svg x-show="mobileOpen" xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+
             <div class="hidden items-center gap-1 md:flex">
                 @foreach ($navLinks as $link)
                     <a href="{{ route($link['route']) }}"
@@ -33,6 +39,10 @@
                     </a>
                 @endforeach
             </div>
+
+            <a href="{{ route('home') }}" class="flex-1 truncate px-1 text-center text-sm font-semibold tracking-tight text-zinc-900 md:hidden dark:text-white">
+                {{ strtoupper($settings->site_name) }}<span class="text-gradient">.</span>
+            </a>
 
             <div class="mx-1 hidden h-6 w-px bg-zinc-200 md:block dark:bg-white/10"></div>
 
@@ -49,11 +59,6 @@
             <a href="{{ route('contact.create') }}" class="ml-1 hidden shrink-0 rounded-full bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-600 md:inline-block dark:bg-white dark:text-zinc-900 dark:hover:bg-indigo-400">
                 Hire Me
             </a>
-
-            <button @click="mobileOpen = !mobileOpen" type="button" class="grid size-9 shrink-0 place-items-center rounded-full text-zinc-600 transition hover:bg-zinc-900/5 md:hidden dark:text-zinc-300 dark:hover:bg-white/10" aria-label="Toggle menu">
-                <svg x-show="!mobileOpen" xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-                <svg x-show="mobileOpen" xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-            </button>
         </nav>
     </div>
 
