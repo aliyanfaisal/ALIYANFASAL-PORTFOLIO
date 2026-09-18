@@ -24,7 +24,7 @@ class BlogController extends Controller
     {
         $post = BlogPost::published()
             ->where('slug', $slug)
-            ->with(['categories', 'tags', 'comments'])
+            ->with(['categories', 'tags', 'comments.reactions', 'comments.replies.reactions'])
             ->firstOrFail();
 
         $post->increment('views');

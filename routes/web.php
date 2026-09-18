@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CommentReactionController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LinkedInAuthController;
@@ -18,6 +19,10 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/category/{category:slug}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::post('/blog/{slug}/comments', [CommentController::class, 'store'])->name('blog.comments.store');
+Route::post('/blog/{slug}/comments/{comment}/replies', [CommentController::class, 'reply'])->name('blog.comments.reply');
+Route::put('/blog/{slug}/comments/{comment}', [CommentController::class, 'update'])->name('blog.comments.update');
+Route::delete('/blog/{slug}/comments/{comment}', [CommentController::class, 'destroy'])->name('blog.comments.destroy');
+Route::post('/blog/{slug}/comments/{comment}/reactions', [CommentReactionController::class, 'store'])->name('blog.comments.reactions.store');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/download', [ProjectController::class, 'downloadLinks'])->name('projects.download');

@@ -9,6 +9,7 @@
         $post->excerpt ?: trim(preg_replace('/\s+/', ' ', strip_tags($post->body_html))),
         160,
     );
+    $totalComments = $post->comments->sum(fn ($comment) => 1 + $comment->replies->count());
 @endphp
 <x-layouts.app :title="$post->title.' — '.$settings->site_name" :description="$metaDescription">
     <x-slot:head>
@@ -52,6 +53,20 @@
                     'logo' => ['@type' => 'ImageObject', 'url' => $fallbackOgImage],
                 ],
             ], JSON_UNESCAPED_SLASHES) !!}
+        </script>
+
+        <script>
+            window.renderTurnstileWhenReady = function (el) {
+                if (!el || el.dataset.turnstileRendered === '1') return;
+                (function attempt() {
+                    if (window.turnstile) {
+                        window.turnstile.render(el, { sitekey: @js(config('services.turnstile.site_key')) });
+                        el.dataset.turnstileRendered = '1';
+                    } else {
+                        setTimeout(attempt, 100);
+                    }
+                })();
+            };
         </script>
     </x-slot:head>
 
@@ -119,18 +134,12 @@
 
         <div id="comments" class="mt-14 border-t border-zinc-200 pt-10 dark:border-white/10">
             <h2 class="text-xl font-bold text-zinc-900 dark:text-white">
-                {{ $post->comments->count() }} {{ \Illuminate\Support\Str::plural('Comment', $post->comments->count()) }}
+                {{ $totalComments }} {{ \Illuminate\Support\Str::plural('Comment', $totalComments) }}
             </h2>
 
             <div class="mt-8 space-y-6">
                 @forelse ($post->comments as $comment)
-                    <div class="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-white/10 dark:bg-zinc-900">
-                        <div class="flex items-center justify-between">
-                            <p class="font-semibold text-zinc-900 dark:text-white">{{ $comment->name }}</p>
-                            <time class="text-xs text-zinc-400">{{ $comment->created_at->format('F j, Y') }}</time>
-                        </div>
-                        <p class="mt-2 whitespace-pre-line text-sm text-zinc-600 dark:text-zinc-300">{{ $comment->body }}</p>
-                    </div>
+                    <x-comment :comment="$comment" :post="$post" />
                 @empty
                     <p class="text-sm text-zinc-500 dark:text-zinc-400">No comments yet — be the first to share your thoughts.</p>
                 @endforelse
@@ -165,7 +174,7 @@
                     @error('body') <p class="mt-1 text-xs text-red-500">{{ $message }}</p> @enderror
                 </div>
 
-                <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}"></div>
+                <div class="cf-turnstile" x-data x-init="window.renderTurnstileWhenReady($el)"></div>
                 @error('cf-turnstile-response') <p class="text-xs text-red-500">{{ $message }}</p> @enderror
 
                 <button type="submit" class="w-full rounded-full bg-zinc-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-indigo-600 dark:bg-white dark:text-zinc-900 dark:hover:bg-indigo-400 sm:w-auto">
@@ -177,5 +186,5 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 </x-layouts.app>
