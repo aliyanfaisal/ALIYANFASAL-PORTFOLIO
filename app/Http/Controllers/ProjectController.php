@@ -11,7 +11,7 @@ class ProjectController extends Controller
     public function index(GithubService $github)
     {
         return view('projects.index', [
-            'projects' => Project::orderByRaw('external_url IS NULL')->orderBy('sort_order')->get(),
+            'projects' => Project::orderByDesc('created_at')->orderByDesc('id')->get(),
             'repos' => $github->repositories(9),
             'githubProfile' => $github->profile(),
         ]);
@@ -20,8 +20,8 @@ class ProjectController extends Controller
     public function downloadLinks(): Response
     {
         $lines = Project::whereNotNull('external_url')
-            ->orderByRaw('external_url IS NULL')
-            ->orderBy('sort_order')
+            ->orderByDesc('created_at')
+            ->orderByDesc('id')
             ->get()
             ->values()
             ->map(fn (Project $project, int $index) => sprintf('%d. %s — %s', $index + 1, $project->title, $project->external_url))

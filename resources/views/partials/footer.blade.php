@@ -3,8 +3,8 @@
 @endphp
 <footer class="border-t border-zinc-200 dark:border-white/10">
     <div class="mx-auto max-w-6xl px-6 py-12">
-        <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-            <div>
+        <div class="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-10 lg:grid-cols-4">
+            <div class="col-span-2 sm:col-span-1">
                 <a href="{{ route('home') }}"
                     class="text-lg font-semibold tracking-tight text-zinc-900 dark:text-white">
                     {{ strtoupper($settings->site_name) }}<span class="text-gradient">.</span>
@@ -54,13 +54,13 @@
                     @endif
                     @if ($settings->contact_email)
                         <li><a href="mailto:{{ $settings->contact_email }}"
-                                class="inline-flex items-center gap-2 hover:text-indigo-500 dark:hover:text-indigo-400"><x-icon
-                                    name="envelope" class="size-4" /> {{ $settings->contact_email }}</a></li>
+                                class="inline-flex items-start gap-2 break-all hover:text-indigo-500 dark:hover:text-indigo-400"><x-icon
+                                    name="envelope" class="size-4 shrink-0 translate-y-0.5" /> {{ $settings->contact_email }}</a></li>
                     @endif
                 </ul>
             </div>
 
-            <div>
+            <div class="col-span-2 sm:col-span-1">
                 <h3 class="text-sm font-semibold text-zinc-900 dark:text-white">Newsletter</h3>
                 <p class="mt-3 text-sm text-zinc-500 dark:text-zinc-400">Get new articles in your inbox. No spam.</p>
                 <form action="{{ route('newsletter.store') }}" method="POST" class="mt-3">

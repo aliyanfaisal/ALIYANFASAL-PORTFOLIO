@@ -33,12 +33,12 @@
         <div class="flex flex-col gap-6 border-b border-zinc-200 pb-8 dark:border-white/10 md:flex-row md:items-center md:justify-between">
             <div class="flex min-w-0 flex-wrap gap-2">
                 <a href="{{ route('blog.index', array_filter(['q' => $search])) }}"
-                   class="rounded-full px-4 py-2 text-sm font-medium transition {{ ! $activeCategory ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900' : 'border border-zinc-300 text-zinc-600 hover:border-indigo-400 hover:text-indigo-500 dark:border-white/15 dark:text-zinc-300' }}">
+                   class="rounded-full px-3 py-1.5 text-xs font-medium transition sm:px-4 sm:py-2 sm:text-sm {{ ! $activeCategory ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900' : 'border border-zinc-300 text-zinc-600 hover:border-indigo-400 hover:text-indigo-500 dark:border-white/15 dark:text-zinc-300' }}">
                     All
                 </a>
                 @foreach ($categories as $category)
                     <a href="{{ route('blog.category', array_filter(['category' => $category->slug, 'q' => $search])) }}"
-                       class="rounded-full px-4 py-2 text-sm font-medium transition {{ $activeCategory?->id === $category->id ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900' : 'border border-zinc-300 text-zinc-600 hover:border-indigo-400 hover:text-indigo-500 dark:border-white/15 dark:text-zinc-300' }}">
+                       class="rounded-full px-3 py-1.5 text-xs font-medium transition sm:px-4 sm:py-2 sm:text-sm {{ $activeCategory?->id === $category->id ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900' : 'border border-zinc-300 text-zinc-600 hover:border-indigo-400 hover:text-indigo-500 dark:border-white/15 dark:text-zinc-300' }}">
                         {{ $category->name }}
                     </a>
                 @endforeach
