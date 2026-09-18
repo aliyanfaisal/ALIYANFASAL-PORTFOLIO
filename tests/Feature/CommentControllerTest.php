@@ -176,6 +176,15 @@ class CommentControllerTest extends TestCase
         $this->assertDatabaseCount('comments', 0);
     }
 
+    public function test_foreign_keys_are_cast_to_integers_even_when_the_driver_returns_strings(): void
+    {
+        $comment = new Comment;
+        $comment->setRawAttributes(['blog_post_id' => '5', 'parent_id' => '2']);
+
+        $this->assertSame(5, $comment->blog_post_id);
+        $this->assertSame(2, $comment->parent_id);
+    }
+
     public function test_store_returns_404_for_an_unpublished_post(): void
     {
         $post = BlogPost::create([

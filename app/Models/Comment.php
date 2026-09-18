@@ -12,6 +12,20 @@ class Comment extends Model
         'blog_post_id', 'parent_id', 'name', 'email', 'body', 'session_id',
     ];
 
+    /**
+     * Foreign keys aren't cast automatically, and MySQL returns them as strings — which would
+     * break strict comparisons against the (int-cast) primary key of the related post.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'blog_post_id' => 'integer',
+            'parent_id' => 'integer',
+        ];
+    }
+
     public function blogPost(): BelongsTo
     {
         return $this->belongsTo(BlogPost::class);
