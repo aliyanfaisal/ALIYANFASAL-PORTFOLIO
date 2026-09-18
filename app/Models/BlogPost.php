@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 class BlogPost extends Model
 {
     protected $fillable = [
-        'title', 'slug', 'excerpt', 'body', 'image_path', 'published_at',
+        'title', 'slug', 'excerpt', 'body', 'image_path', 'source_image_url', 'published_at',
     ];
 
     protected $casts = [

@@ -55,6 +55,7 @@ class BlogPostController extends Controller
             'excerpt' => $data['excerpt'] ?? $this->deriveExcerpt($data['body']),
             'body' => $data['body'],
             'image_path' => $imagePath,
+            'source_image_url' => $data['image_url'] ?? null,
             'published_at' => $autoApprove ? ($data['published_at'] ?? now()) : null,
         ]);
 
@@ -70,6 +71,25 @@ class BlogPostController extends Controller
             'categories' => $post->categories()->pluck('name'),
             'tags' => $post->tags()->pluck('name'),
         ], 201);
+    }
+
+    /**
+     * List the image URLs of the most recent posts so new runs can avoid reusing them.
+     */
+    public function recentImages(): JsonResponse
+    {
+        $recentImages = BlogPost::query()
+            ->latest()
+            ->latest('id')
+            ->limit(20)
+            ->get(['slug', 'image_path', 'source_image_url'])
+            ->map(fn (BlogPost $post): array => [
+                'blog_url' => url('/blog/'.$post->slug),
+                'source_image_url' => $post->source_image_url,
+                'rehosted_image_url' => $post->image_path ? asset('storage/'.$post->image_path) : null,
+            ]);
+
+        return response()->json(['recent_images' => $recentImages]);
     }
 
     /**

@@ -130,6 +130,7 @@ class BlogPostControllerTest extends TestCase
 
         $post = BlogPost::where('slug', 'with-image')->firstOrFail();
         $this->assertSame('blog/with-image.jpg', $post->image_path);
+        $this->assertSame('https://example.com/cover.jpg', $post->source_image_url);
         Storage::disk('public')->assertExists('blog/with-image.jpg');
     }
 
@@ -147,5 +148,51 @@ class BlogPostControllerTest extends TestCase
 
         $response->assertStatus(422)->assertJsonValidationErrors(['image_url']);
         $this->assertDatabaseMissing('blog_posts', ['slug' => 'broken-image']);
+    }
+
+    public function test_recent_images_rejects_requests_without_a_valid_token(): void
+    {
+        $this->getJson('/api/blog-posts/recent-images')->assertStatus(401);
+    }
+
+    public function test_recent_images_returns_an_empty_list_when_there_are_no_posts(): void
+    {
+        $this->getJson('/api/blog-posts/recent-images', $this->headers())
+            ->assertOk()
+            ->assertExactJson(['recent_images' => []]);
+    }
+
+    public function test_recent_images_returns_the_latest_twenty_posts_newest_first(): void
+    {
+        foreach (range(1, 22) as $number) {
+            BlogPost::create([
+                'title' => "Post {$number}",
+                'slug' => "post-{$number}",
+                'body' => 'x',
+                'image_path' => "blog/post-{$number}.jpg",
+                'source_image_url' => "https://images.unsplash.com/photo-{$number}",
+                'created_at' => now()->subDays(30 - $number),
+            ]);
+        }
+
+        $response = $this->getJson('/api/blog-posts/recent-images', $this->headers())->assertOk();
+
+        $response->assertJsonCount(20, 'recent_images');
+        $response->assertJsonPath('recent_images.0', [
+            'blog_url' => url('/blog/post-22'),
+            'source_image_url' => 'https://images.unsplash.com/photo-22',
+            'rehosted_image_url' => asset('storage/blog/post-22.jpg'),
+        ]);
+        $response->assertJsonPath('recent_images.19.blog_url', url('/blog/post-3'));
+    }
+
+    public function test_recent_images_returns_null_for_posts_without_images(): void
+    {
+        BlogPost::create(['title' => 'Legacy', 'slug' => 'legacy', 'body' => 'x']);
+
+        $this->getJson('/api/blog-posts/recent-images', $this->headers())
+            ->assertOk()
+            ->assertJsonPath('recent_images.0.source_image_url', null)
+            ->assertJsonPath('recent_images.0.rehosted_image_url', null);
     }
 }
