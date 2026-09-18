@@ -117,6 +117,62 @@ class ProjectSeeder extends Seeder
                 'external_url' => 'https://nomadgoods.com/',
                 'featured' => false,
             ],
+            [
+                'title' => 'Damyel',
+                'description' => 'WooCommerce storefront for a Parisian chocolaterie selling handcrafted vegan and reduced-sugar chocolates and confectionery.',
+                'categories' => ['E-Commerce', 'WordPress'],
+                'external_url' => 'https://damyel.com/',
+                'featured' => false,
+            ],
+            [
+                'title' => 'Damyel Israel',
+                'description' => 'Israeli storefront for the Damyel chocolate brand, localized in Hebrew for the local market.',
+                'categories' => ['E-Commerce', 'WordPress'],
+                'external_url' => 'https://damyel.co.il',
+                'featured' => false,
+            ],
+            [
+                'title' => 'Freshly Rated Cannabis',
+                'description' => 'WooCommerce dispensary offering same-day and mail-order delivery of cannabis flower, concentrates, edibles and vapes across British Columbia.',
+                'categories' => ['E-Commerce', 'WordPress'],
+                'external_url' => 'https://freshlyratedcannabis.com/',
+                'featured' => false,
+            ],
+            [
+                'title' => 'La Femme',
+                'description' => 'Booking site for a Norwegian beauty and wellness salon offering nail care, skincare, lash extensions and body treatments.',
+                'categories' => ['Booking', 'Business'],
+                'external_url' => 'https://la-femme.no/',
+                'featured' => false,
+            ],
+            [
+                'title' => 'HomeGenie',
+                'description' => 'Romanian services marketplace connecting clients with vetted specialists for cleaning, electrical, plumbing, carpentry and moving jobs.',
+                'categories' => ['Web App', 'Marketplace'],
+                'external_url' => 'https://www.homegenie.ro/',
+                'featured' => false,
+            ],
+            [
+                'title' => 'CosmoFactor',
+                'description' => 'Shopify storefront selling skincare, cosmetics and fragrance from luxury beauty brands.',
+                'categories' => ['E-Commerce'],
+                'external_url' => 'https://cosmofactor.com/',
+                'featured' => false,
+            ],
+            [
+                'title' => 'DermLane',
+                'description' => 'Shopify storefront for medical-grade and professional skincare brands like Obagi, SkinMedica and EltaMD.',
+                'categories' => ['E-Commerce'],
+                'external_url' => 'https://dermlane.com/',
+                'featured' => false,
+            ],
+            [
+                'title' => 'Bellarui',
+                'description' => 'WooCommerce beauty storefront selling premium cosmetics, skincare and personal care products.',
+                'categories' => ['E-Commerce', 'WordPress'],
+                'external_url' => 'https://bellarui.com/',
+                'featured' => false,
+            ],
         ];
 
         foreach ($projects as $i => $project) {

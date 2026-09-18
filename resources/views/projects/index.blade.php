@@ -9,8 +9,16 @@
     </section>
 
     <section class="mx-auto max-w-6xl px-6 pb-16">
-        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Client Projects</h2>
-        <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">A selection of my most recent work — not the full list of projects I've delivered.</p>
+        <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+                <h2 class="text-2xl font-bold text-zinc-900 dark:text-white">Client Projects</h2>
+                <p class="mt-1 text-sm text-zinc-500 dark:text-zinc-400">A selection of my most recent work — not the full list of projects I've delivered.</p>
+            </div>
+            <a href="{{ route('projects.download') }}" class="inline-flex items-center gap-2 rounded-full border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-700 hover:border-indigo-400 hover:text-indigo-500 dark:border-white/15 dark:text-zinc-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>
+                Download project links (.txt)
+            </a>
+        </div>
         <div class="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
             @foreach ($projects as $project)
                 <x-project-card :project="$project" />

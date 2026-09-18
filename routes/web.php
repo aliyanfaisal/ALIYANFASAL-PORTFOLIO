@@ -18,6 +18,7 @@ Route::get('/blog/category/{category:slug}', [BlogController::class, 'category']
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
+Route::get('/projects/download', [ProjectController::class, 'downloadLinks'])->name('projects.download');
 Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
 Route::get('/services/{service}', [ServiceController::class, 'show'])->name('services.show');
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
