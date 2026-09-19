@@ -86,7 +86,7 @@
                 <span class="absolute -right-4 bottom-24 -z-10 size-2 animate-float rounded-full bg-indigo-400/50 blur-[1px]" style="animation-delay: 0.9s"></span>
                 <span class="absolute -left-6 bottom-4 -z-10 size-1.5 animate-float rounded-full bg-cyan-400/50 blur-[1px]" style="animation-delay: 2.4s"></span>
 
-                <img src="{{ asset('images/aliyan-headshot-cutout.png') }}" alt="Aliyan Faisal" class="fade-top relative z-10 mx-auto h-auto w-[85%] drop-shadow-[0_20px_40px_rgba(79,70,229,0.35)] sm:w-full">
+                <img src="{{ asset('images/aliyan_navy_suit_cutout.png') }}" alt="Aliyan Faisal" class="fade-top relative z-10 mx-auto h-auto w-[85%] drop-shadow-[0_20px_40px_rgba(79,70,229,0.35)] sm:w-full">
 
                 {{-- grounding shadow --}}
                 <div class="mx-auto -mt-6 h-6 w-2/3 rounded-full bg-zinc-900/20 blur-xl dark:bg-black/40"></div>

@@ -1,12 +1,19 @@
 <x-layouts.app title="About — Aliyan Faisal">
-    <section class="mx-auto max-w-4xl px-6 py-16 text-center">
-        <p class="text-sm font-semibold uppercase tracking-widest text-indigo-500 dark:text-indigo-400">About Me</p>
-        <h1 class="mt-3 text-4xl font-bold text-zinc-900 dark:text-white">Hi, I'm Aliyan Faisal.</h1>
-        <p class="mx-auto mt-6 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
-            A full-stack web developer specializing in custom WordPress, Laravel and WooCommerce builds
-            — with growing expertise in integrating AI, APIs and automation into websites and business workflows.
-            I've spent 5+ years building for clients on Fiverr, Upwork and locally, delivering 300+ orders along the way.
-        </p>
+    <section class="mx-auto grid max-w-5xl items-center gap-10 px-6 py-16 md:grid-cols-[1fr_20rem]">
+        <div class="text-center md:text-left">
+            <p class="text-sm font-semibold uppercase tracking-widest text-indigo-500 dark:text-indigo-400">About Me</p>
+            <h1 class="mt-3 text-4xl font-bold text-zinc-900 dark:text-white">Hi, I'm Aliyan Faisal.</h1>
+            <p class="mt-6 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
+                A full-stack web developer specializing in custom WordPress, Laravel and WooCommerce builds
+                — with growing expertise in integrating AI, APIs and automation into websites and business workflows.
+                I've spent 5+ years building for clients on Fiverr, Upwork and locally, delivering 300+ orders along the way.
+            </p>
+        </div>
+
+        <div class="relative mx-auto w-64 md:w-full">
+            <div class="absolute -inset-4 -z-10 rounded-full bg-gradient-to-br from-indigo-500/20 via-violet-500/15 to-cyan-400/20 blur-2xl"></div>
+            <img src="{{ asset('images/aliyan_whiteshirt_redtie_cutout.png') }}" alt="Aliyan Faisal" class="fade-top relative z-10 h-auto w-full drop-shadow-[0_20px_40px_rgba(79,70,229,0.35)]">
+        </div>
     </section>
 
     {{-- Skills --}}
