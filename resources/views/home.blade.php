@@ -70,7 +70,7 @@
                 </dl>
             </div>
 
-            <div class="relative mx-auto w-full max-w-sm">
+            <div class="relative mx-auto w-full max-w-sm md:order-first">
                 {{-- spotlight glow behind subject --}}
                 <div class="absolute left-1/2 top-1/2 -z-10 h-[110%] w-[85%] -translate-x-1/2 -translate-y-1/2 animate-pulse-slow rounded-full bg-gradient-to-br from-indigo-500/50 via-violet-500/40 to-cyan-400/40 blur-3xl"></div>
 
@@ -86,36 +86,36 @@
                 <span class="absolute -right-4 bottom-24 -z-10 size-2 animate-float rounded-full bg-indigo-400/50 blur-[1px]" style="animation-delay: 0.9s"></span>
                 <span class="absolute -left-6 bottom-4 -z-10 size-1.5 animate-float rounded-full bg-cyan-400/50 blur-[1px]" style="animation-delay: 2.4s"></span>
 
-                <img src="{{ asset('images/aliyan_navy_suit_cutout.png') }}" alt="Aliyan Faisal" class="fade-top relative z-10 mx-auto h-auto w-[85%] drop-shadow-[0_20px_40px_rgba(79,70,229,0.35)] sm:w-full">
+                <img src="{{ asset('images/aliyan_navy_suit_cutout.png') }}" alt="Aliyan Faisal" class="fade-top relative z-10 mx-auto h-auto w-[85%] rounded-b-[50%] drop-shadow-[0_20px_40px_rgba(79,70,229,0.35)] sm:w-full">
 
                 {{-- grounding shadow --}}
                 <div class="mx-auto -mt-6 h-6 w-2/3 rounded-full bg-zinc-900/20 blur-xl dark:bg-black/40"></div>
 
-                <div class="glass-card animate-float absolute -left-10 top-2 z-20 hidden w-40 lg:block" style="animation-delay: 0s">
+                <div class="glass-card animate-float absolute -left-2 top-2 z-20 hidden w-40 lg:-left-14 lg:block" style="animation-delay: 0s">
                     <div class="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-indigo-500/15 via-violet-500/15 to-cyan-400/15 text-indigo-500 dark:text-indigo-300"><x-icon name="cpu-chip" class="size-4" /></div>
                     <p class="mt-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-100">AI Integrations</p>
                     <p class="text-[11px] text-zinc-500 dark:text-zinc-400">OpenAI · Claude · Gemini</p>
                 </div>
 
-                <div class="glass-card animate-float absolute -right-4 top-1/4 z-20 w-36" style="animation-delay: 1.2s">
+                <div class="glass-card animate-float absolute -right-14 top-1/4 z-20 hidden w-36 lg:block" style="animation-delay: 1.2s">
                     <div class="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-amber-400/20 via-amber-400/10 to-transparent text-amber-500"><x-icon name="star" class="size-4" /></div>
                     <p class="mt-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-100">5.0 Rating</p>
                     <p class="text-[11px] text-zinc-500 dark:text-zinc-400">205 Fiverr reviews</p>
                 </div>
 
-                <div class="glass-card animate-float absolute -left-6 top-[35%] z-20 hidden w-36 lg:block" style="animation-delay: 1.8s">
+                <div class="glass-card animate-float absolute -left-12 top-[38%] z-20 hidden w-36 lg:block" style="animation-delay: 1.8s">
                     <div class="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-violet-500/15 via-fuchsia-500/15 to-transparent text-violet-500 dark:text-violet-300"><x-icon name="rocket" class="size-4" /></div>
                     <p class="mt-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-100">Fast Delivery</p>
                     <p class="text-[11px] text-zinc-500 dark:text-zinc-400">Avg. 1–3 day turnaround</p>
                 </div>
 
-                <div class="glass-card animate-float absolute -left-2 bottom-10 z-20 w-44" style="animation-delay: 2.4s">
+                <div class="glass-card animate-float absolute -left-2 bottom-10 z-20 w-44 lg:-left-16" style="animation-delay: 2.4s">
                     <div class="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-cyan-500/15 via-indigo-500/15 to-transparent text-cyan-500 dark:text-cyan-300"><x-icon name="bolt" class="size-4" /></div>
                     <p class="mt-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-100">300+ Orders Delivered</p>
                     <p class="text-[11px] text-zinc-500 dark:text-zinc-400">Laravel · WordPress · AI</p>
                 </div>
 
-                <div class="glass-card animate-float absolute -right-6 bottom-0 z-20 hidden w-36 sm:block" style="animation-delay: 3.2s">
+                <div class="glass-card animate-float absolute -right-6 bottom-0 z-20 hidden w-36 sm:block lg:-right-14" style="animation-delay: 3.2s">
                     <div class="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-emerald-500/15 via-teal-500/15 to-transparent text-emerald-500 dark:text-emerald-300"><x-icon name="badge-check" class="size-4" /></div>
                     <p class="mt-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-100">Level 2 Seller</p>
                     <p class="text-[11px] text-zinc-500 dark:text-zinc-400">Fiverr verified</p>

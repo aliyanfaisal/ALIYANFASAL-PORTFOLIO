@@ -12,7 +12,7 @@
 
         <div class="relative mx-auto w-64 md:w-full">
             <div class="absolute -inset-4 -z-10 rounded-full bg-gradient-to-br from-indigo-500/20 via-violet-500/15 to-cyan-400/20 blur-2xl"></div>
-            <img src="{{ asset('images/aliyan_whiteshirt_redtie_cutout.png') }}" alt="Aliyan Faisal" class="fade-top relative z-10 h-auto w-full drop-shadow-[0_20px_40px_rgba(79,70,229,0.35)]">
+            <img src="{{ asset('images/aliyan_whiteshirt_redtie_cutout.png') }}" alt="Aliyan Faisal" class="fade-top relative z-10 h-auto w-full rounded-b-[50%] drop-shadow-[0_20px_40px_rgba(79,70,229,0.35)]">
         </div>
     </section>
 
