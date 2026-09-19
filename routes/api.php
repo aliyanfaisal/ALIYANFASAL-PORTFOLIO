@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AutomationLogController;
 use App\Http\Controllers\Api\BlogPostController;
+use App\Http\Controllers\Api\ImageUploadController;
 use App\Http\Controllers\Api\LinkedInPostController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,7 @@ Route::post('/automation-logs', [AutomationLogController::class, 'store'])
 Route::post('/linkedin-post', [LinkedInPostController::class, 'store'])
     ->middleware('linkedin.api.token')
     ->name('api.linkedin-post.store');
+
+Route::post('/upload-image', [ImageUploadController::class, 'store'])
+    ->middleware('blog.api.token')
+    ->name('api.upload-image.store');
