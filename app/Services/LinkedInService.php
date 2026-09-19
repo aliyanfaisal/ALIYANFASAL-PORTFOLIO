@@ -7,10 +7,14 @@ use App\Exceptions\LinkedInNotConnectedException;
 use App\Models\LinkedInToken;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Sleep;
 
 class LinkedInService
 {
     private const API_VERSION = '202609';
+
+    private const IMAGE_STATUS_POLL_ATTEMPTS = 10;
 
     /**
      * Exchange an OAuth authorization code for an access token.
@@ -140,7 +144,54 @@ class LinkedInService
             );
         }
 
+        Log::info('LinkedIn image bytes uploaded', [
+            'image_urn' => $imageUrn,
+            'status' => $uploadResponse->status(),
+            'bytes' => strlen($imageBytes),
+            'content_type' => $contentType,
+        ]);
+
+        $this->waitForImageToBeAvailable($accessToken, $imageUrn);
+
         return $imageUrn;
+    }
+
+    /**
+     * Poll the image until LinkedIn has finished processing it. A post that references an image
+     * still processing (or one that failed processing) is accepted with a 201 but never renders.
+     */
+    private function waitForImageToBeAvailable(string $accessToken, string $imageUrn): void
+    {
+        $status = null;
+
+        for ($attempt = 1; $attempt <= self::IMAGE_STATUS_POLL_ATTEMPTS; $attempt++) {
+            $response = Http::withHeaders($this->restHeaders($accessToken))
+                ->get('https://api.linkedin.com/rest/images/'.rawurlencode($imageUrn));
+
+            $status = $response->json('status');
+
+            Log::info('LinkedIn image status', [
+                'image_urn' => $imageUrn,
+                'attempt' => $attempt,
+                'http_status' => $response->status(),
+                'status' => $status,
+            ]);
+
+            if ($response->failed() || $status === 'AVAILABLE') {
+                return;
+            }
+
+            if ($status === 'PROCESSING_FAILED') {
+                throw new LinkedInApiException('LinkedIn failed to process the uploaded image.', $response->status(), $response->json() ?? $response->body());
+            }
+
+            Sleep::for(1)->second();
+        }
+
+        Log::warning('LinkedIn image still not AVAILABLE after polling; posting anyway', [
+            'image_urn' => $imageUrn,
+            'status' => $status,
+        ]);
     }
 
     /**
@@ -166,9 +217,50 @@ class LinkedInService
                 'isReshareDisabledByAuthor' => false,
             ]);
 
+        Log::info('LinkedIn create post response', [
+            'status' => $response->status(),
+            'restli_id' => $response->header('x-restli-id'),
+            'body' => $response->body(),
+        ]);
+
         $this->assertSuccessful($response, 'Failed to create LinkedIn post.');
 
-        return $response->header('x-restli-id') ?? $response->header('X-RestLi-Id');
+        $postUrn = $response->header('x-restli-id');
+
+        if (! $postUrn) {
+            throw new LinkedInApiException('LinkedIn accepted the post but returned no post URN.', $response->status(), $response->body());
+        }
+
+        $this->assertPostIsPublished($accessToken, $postUrn);
+
+        return $postUrn;
+    }
+
+    /**
+     * Read the post back and log its real state. Reading member posts needs r_member_social, which
+     * this app may not have, so an unreadable post is logged and tolerated. A readable post that
+     * isn't PUBLISHED is a failure: LinkedIn issued a URN for something that won't render.
+     */
+    private function assertPostIsPublished(string $accessToken, string $postUrn): void
+    {
+        $response = Http::withHeaders($this->restHeaders($accessToken))
+            ->get('https://api.linkedin.com/rest/posts/'.rawurlencode($postUrn));
+
+        Log::info('LinkedIn post verification response', [
+            'post_urn' => $postUrn,
+            'status' => $response->status(),
+            'lifecycle_state' => $response->json('lifecycleState'),
+            'visibility' => $response->json('visibility'),
+            'body' => $response->body(),
+        ]);
+
+        if ($response->successful() && $response->json('lifecycleState') !== 'PUBLISHED') {
+            throw new LinkedInApiException(
+                "LinkedIn created {$postUrn} but its lifecycleState is not PUBLISHED.",
+                $response->status(),
+                $response->json() ?? $response->body(),
+            );
+        }
     }
 
     /**
