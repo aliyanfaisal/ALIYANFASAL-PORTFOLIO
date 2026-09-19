@@ -111,4 +111,29 @@ class LinkedInPostControllerTest extends TestCase
         $this->postJson('/api/linkedin-post', $this->postPayload(), ['Authorization' => 'Bearer test-token'])
             ->assertCreated();
     }
+
+    public function test_it_downscales_and_reencodes_oversized_images_before_uploading(): void
+    {
+        $image = imagecreatetruecolor(3000, 2000);
+        ob_start();
+        imagepng($image);
+        $png = (string) ob_get_clean();
+
+        $this->fakeLinkedIn([
+            'example.com/*' => Http::response($png, 200, ['Content-Type' => 'image/png']),
+        ]);
+
+        $this->postJson('/api/linkedin-post', $this->postPayload(), ['Authorization' => 'Bearer test-token'])
+            ->assertCreated();
+
+        Http::assertSent(function (Request $request) {
+            if ($request->url() !== 'https://upload.linkedin.test/put') {
+                return false;
+            }
+
+            $info = getimagesizefromstring($request->body());
+
+            return $info['mime'] === 'image/jpeg' && max($info[0], $info[1]) === 2048;
+        });
+    }
 }

@@ -16,6 +16,10 @@ class LinkedInService
 
     private const IMAGE_STATUS_POLL_ATTEMPTS = 10;
 
+    private const MAX_IMAGE_BYTES = 4_000_000;
+
+    private const MAX_IMAGE_DIMENSION = 2048;
+
     /**
      * Exchange an OAuth authorization code for an access token.
      *
@@ -106,7 +110,9 @@ class LinkedInService
 
         $contentType = strtolower(explode(';', $imageResponse->header('Content-Type') ?? 'image/jpeg')[0]);
 
-        $imageUrn = $this->registerAndUploadImage($accessToken, $memberUrn, $imageResponse->body(), $contentType);
+        [$imageBytes, $contentType] = $this->prepareImage($imageResponse->body(), $contentType);
+
+        $imageUrn = $this->registerAndUploadImage($accessToken, $memberUrn, $imageBytes, $contentType);
 
         $postUrn = $this->createPost($accessToken, $memberUrn, $imageUrn, $caption);
 
@@ -114,6 +120,68 @@ class LinkedInService
             'urn' => $postUrn,
             'url' => "https://www.linkedin.com/feed/update/{$postUrn}/",
         ];
+    }
+
+    /**
+     * Make sure the image is something LinkedIn will accept. LinkedIn returns a 201 on upload but then
+     * marks oversized or unsupported images PROCESSING_FAILED, so anything over the size budget, over
+     * the dimension budget, or not a JPEG/PNG is downscaled and re-encoded as JPEG. If the image can't
+     * be decoded it is sent unchanged.
+     *
+     * @return array{0: string, 1: string} The image bytes and their content type.
+     */
+    private function prepareImage(string $bytes, string $contentType): array
+    {
+        $info = @getimagesizefromstring($bytes);
+
+        Log::info('LinkedIn source image', [
+            'bytes' => strlen($bytes),
+            'declared_content_type' => $contentType,
+            'detected_mime' => $info['mime'] ?? null,
+            'width' => $info[0] ?? null,
+            'height' => $info[1] ?? null,
+        ]);
+
+        if ($info === false || ! function_exists('imagecreatefromstring')) {
+            return [$bytes, $contentType];
+        }
+
+        [$width, $height] = $info;
+        $mime = $info['mime'];
+        $isSupportedType = in_array($mime, ['image/jpeg', 'image/png'], true);
+        $needsResize = max($width, $height) > self::MAX_IMAGE_DIMENSION;
+
+        if ($isSupportedType && ! $needsResize && strlen($bytes) <= self::MAX_IMAGE_BYTES) {
+            return [$bytes, $mime];
+        }
+
+        $source = @imagecreatefromstring($bytes);
+
+        if ($source === false) {
+            return [$bytes, $contentType];
+        }
+
+        if ($needsResize) {
+            $scale = self::MAX_IMAGE_DIMENSION / max($width, $height);
+            $resized = imagescale($source, (int) round($width * $scale), (int) round($height * $scale));
+
+            if ($resized !== false) {
+                $source = $resized;
+            }
+        }
+
+        ob_start();
+        imagejpeg($source, null, 85);
+        $jpeg = (string) ob_get_clean();
+
+        Log::info('LinkedIn image re-encoded', [
+            'from_bytes' => strlen($bytes),
+            'to_bytes' => strlen($jpeg),
+            'width' => imagesx($source),
+            'height' => imagesy($source),
+        ]);
+
+        return [$jpeg, 'image/jpeg'];
     }
 
     /**
@@ -134,7 +202,7 @@ class LinkedInService
         $uploadUrl = $initResponse->json('value.uploadUrl');
         $imageUrn = $initResponse->json('value.image');
 
-        $uploadResponse = Http::withBody($imageBytes, $contentType)->put($uploadUrl);
+        $uploadResponse = Http::withToken($accessToken)->withBody($imageBytes, $contentType)->put($uploadUrl);
 
         if ($uploadResponse->failed()) {
             throw new LinkedInApiException(
