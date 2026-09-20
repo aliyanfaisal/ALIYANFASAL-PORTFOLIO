@@ -70,7 +70,7 @@
                 </dl>
             </div>
 
-            <div class="relative mx-auto w-full max-w-sm md:order-first">
+            <div class="relative mx-auto w-full max-w-sm order-first md:order-none">
                 {{-- spotlight glow behind subject --}}
                 <div class="absolute left-1/2 top-1/2 -z-10 h-[110%] w-[85%] -translate-x-1/2 -translate-y-1/2 animate-pulse-slow rounded-full bg-gradient-to-br from-indigo-500/50 via-violet-500/40 to-cyan-400/40 blur-3xl"></div>
 
@@ -86,7 +86,7 @@
                 <span class="absolute -right-4 bottom-24 -z-10 size-2 animate-float rounded-full bg-indigo-400/50 blur-[1px]" style="animation-delay: 0.9s"></span>
                 <span class="absolute -left-6 bottom-4 -z-10 size-1.5 animate-float rounded-full bg-cyan-400/50 blur-[1px]" style="animation-delay: 2.4s"></span>
 
-                <img src="{{ asset('images/aliyan_navy_suit_cutout.png') }}" alt="Aliyan Faisal" class="fade-top relative z-10 mx-auto h-auto w-[85%] rounded-b-[50%] drop-shadow-[0_20px_40px_rgba(79,70,229,0.35)] sm:w-full">
+                <img src="{{ asset('images/aliyan_navy_suit_cutout.png') }}" alt="Aliyan Faisal" class="fade-top relative z-10 mx-auto h-auto w-[85%] -scale-x-100 rounded-b-[50%] drop-shadow-[0_20px_40px_rgba(79,70,229,0.35)] sm:w-full">
 
                 {{-- grounding shadow --}}
                 <div class="mx-auto -mt-6 h-6 w-2/3 rounded-full bg-zinc-900/20 blur-xl dark:bg-black/40"></div>
