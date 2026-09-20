@@ -100,7 +100,7 @@
                 <div class="glass-card animate-float absolute -right-14 top-1/4 z-20 hidden w-36 lg:block" style="animation-delay: 1.2s">
                     <div class="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-amber-400/20 via-amber-400/10 to-transparent text-amber-500"><x-icon name="star" class="size-4" /></div>
                     <p class="mt-1.5 text-xs font-semibold text-zinc-800 dark:text-zinc-100">5.0 Rating</p>
-                    <p class="text-[11px] text-zinc-500 dark:text-zinc-400">205 Fiverr reviews</p>
+                    <p class="text-[11px] text-zinc-500 dark:text-zinc-400">200+ Fiverr reviews</p>
                 </div>
 
                 <div class="glass-card animate-float absolute -left-12 top-[38%] z-20 hidden w-36 lg:block" style="animation-delay: 1.8s">
@@ -398,7 +398,7 @@
     @if ($testimonials->isNotEmpty())
         <section class="reveal border-t border-zinc-200 bg-zinc-50 py-20 dark:border-white/10 dark:bg-white/[0.02]">
             <div class="mx-auto max-w-6xl px-6">
-                <p class="text-center text-sm font-semibold uppercase tracking-widest text-indigo-500 dark:text-indigo-400">{{ $testimonials->count() }}+ Five-Star Reviews</p>
+                <p class="text-center text-sm font-semibold uppercase tracking-widest text-indigo-500 dark:text-indigo-400">200+ Five-Star Reviews</p>
                 <h2 class="mt-2 text-center text-2xl font-bold text-zinc-900 dark:text-white">What Clients Say</h2>
 
                 <div x-data="{ expanded: false }" class="mt-10">
