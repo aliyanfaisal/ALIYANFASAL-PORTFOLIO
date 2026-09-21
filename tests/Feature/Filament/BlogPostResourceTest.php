@@ -4,6 +4,7 @@ namespace Tests\Feature\Filament;
 
 use App\Filament\Resources\BlogPosts\Pages\CreateBlogPost;
 use App\Filament\Resources\BlogPosts\Pages\EditBlogPost;
+use App\Filament\Resources\BlogPosts\Pages\ListBlogPosts;
 use App\Jobs\PushBlogPostToCuelara;
 use App\Models\BlogPost;
 use App\Models\Category;
@@ -83,5 +84,25 @@ class BlogPostResourceTest extends TestCase
         Livewire::actingAs($admin)
             ->test(EditBlogPost::class, ['record' => $post->slug])
             ->assertActionExists('sendToCuelara', fn ($action): bool => $action->getLabel() === 'Resend to Cuelara');
+    }
+
+    public function test_admin_can_send_a_post_to_cuelara_from_the_table_column(): void
+    {
+        Queue::fake();
+        config([
+            'services.cuelara.url' => 'https://cuelara.test/api/blog-posts',
+            'services.cuelara.token' => 'token',
+        ]);
+
+        $admin = User::factory()->create(['is_admin' => true]);
+        $post = BlogPost::create(['title' => 'Hi', 'slug' => 'hi', 'excerpt' => 'e', 'body' => 'b']);
+
+        Livewire::actingAs($admin)
+            ->test(ListBlogPosts::class)
+            ->assertSee('Send to Cuelara')
+            ->callTableAction('sendToCuelara', $post)
+            ->assertNotified('Post queued for Cuelara');
+
+        Queue::assertPushed(PushBlogPostToCuelara::class, fn ($job): bool => $job->force && $job->post->is($post));
     }
 }

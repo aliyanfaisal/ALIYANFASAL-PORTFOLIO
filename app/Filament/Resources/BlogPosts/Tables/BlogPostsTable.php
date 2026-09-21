@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\BlogPosts\Tables;
 
+use App\Filament\Resources\BlogPosts\Actions\SendToCuelaraAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -36,9 +37,14 @@ class BlogPostsTable
                     ->placeholder('Draft'),
                 TextColumn::make('cuelara_synced_at')
                     ->label('Sent to Cuelara')
-                    ->dateTime()
                     ->sortable()
-                    ->placeholder('Not sent'),
+                    ->badge()
+                    ->icon(fn ($record): string => $record->cuelara_synced_at ? 'heroicon-o-check-circle' : 'heroicon-o-paper-airplane')
+                    ->color(fn ($record): string => $record->cuelara_synced_at ? 'success' : 'primary')
+                    ->default('Send to Cuelara')
+                    ->formatStateUsing(fn ($record): string => $record->cuelara_synced_at?->format('M j, Y H:i') ?? 'Send to Cuelara')
+                    ->tooltip(fn ($record): string => $record->cuelara_synced_at ? 'Click to resend' : 'Click to send')
+                    ->action(SendToCuelaraAction::make()),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
