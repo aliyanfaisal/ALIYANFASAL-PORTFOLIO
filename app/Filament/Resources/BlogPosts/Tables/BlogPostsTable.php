@@ -34,6 +34,11 @@ class BlogPostsTable
                     ->dateTime()
                     ->sortable()
                     ->placeholder('Draft'),
+                TextColumn::make('cuelara_synced_at')
+                    ->label('Sent to Cuelara')
+                    ->dateTime()
+                    ->sortable()
+                    ->placeholder('Not sent'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -68,4 +68,20 @@ class BlogPostResourceTest extends TestCase
 
         Queue::assertPushed(PushBlogPostToCuelara::class, fn ($job): bool => $job->force && $job->post->is($post));
     }
+
+    public function test_send_button_reflects_whether_the_post_was_already_sent(): void
+    {
+        $admin = User::factory()->create(['is_admin' => true]);
+        $post = BlogPost::create(['title' => 'Hi', 'slug' => 'hi', 'excerpt' => 'e', 'body' => 'b']);
+
+        $component = Livewire::actingAs($admin)
+            ->test(EditBlogPost::class, ['record' => $post->slug])
+            ->assertActionExists('sendToCuelara', fn ($action): bool => $action->getLabel() === 'Send to Cuelara');
+
+        $post->forceFill(['cuelara_synced_at' => now()])->save();
+
+        Livewire::actingAs($admin)
+            ->test(EditBlogPost::class, ['record' => $post->slug])
+            ->assertActionExists('sendToCuelara', fn ($action): bool => $action->getLabel() === 'Resend to Cuelara');
+    }
 }

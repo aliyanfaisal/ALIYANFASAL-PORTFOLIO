@@ -73,6 +73,12 @@ class BlogPostForm
                 DateTimePicker::make('published_at')
                     ->helperText('Leave blank to save as a draft. Set a future date to schedule.')
                     ->native(false),
+                DateTimePicker::make('cuelara_synced_at')
+                    ->label('Last sent to Cuelara')
+                    ->placeholder('Not sent yet')
+                    ->disabled()
+                    ->dehydrated(false)
+                    ->visibleOn('edit'),
             ]);
     }
 }

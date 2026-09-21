@@ -17,10 +17,12 @@ class EditBlogPost extends EditRecord
     {
         return [
             Action::make('sendToCuelara')
-                ->label('Send to Cuelara')
+                ->label(fn (): string => $this->getRecord()->cuelara_synced_at ? 'Resend to Cuelara' : 'Send to Cuelara')
                 ->icon('heroicon-o-paper-airplane')
                 ->requiresConfirmation()
-                ->modalDescription('Push this post to Cuelara now. If it was already sent, it will be updated there.')
+                ->modalDescription(fn (): string => $this->getRecord()->cuelara_synced_at
+                    ? 'Already sent to Cuelara on '.$this->getRecord()->cuelara_synced_at->toDayDateTimeString().'. Resending will update the post there.'
+                    : 'Push this post to Cuelara now.')
                 ->action(function (): void {
                     if (! config('services.cuelara.url') || ! config('services.cuelara.token')) {
                         Notification::make()
