@@ -2,10 +2,12 @@
 
 namespace Tests\Feature\Api;
 
+use App\Jobs\PushBlogPostToCuelara;
 use App\Models\BlogPost;
 use App\Models\Setting;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -194,5 +196,63 @@ class BlogPostControllerTest extends TestCase
             ->assertOk()
             ->assertJsonPath('recent_images.0.source_image_url', null)
             ->assertJsonPath('recent_images.0.rehosted_image_url', null);
+    }
+
+    public function test_it_reuses_an_image_already_uploaded_to_this_server(): void
+    {
+        Storage::fake('public');
+        Http::fake();
+        Storage::disk('public')->put('generated/hero.png', 'fake-image');
+
+        $response = $this->postJson('/api/blog-posts', [
+            'title' => 'Reuse Post',
+            'body' => 'Body',
+            'image_url' => asset('storage/generated/hero.png'),
+        ], $this->headers());
+
+        $response->assertStatus(201)
+            ->assertJsonPath('image_url', asset('storage/generated/hero.png'));
+
+        Http::assertNothingSent();
+        $this->assertSame('generated/hero.png', BlogPost::firstOrFail()->image_path);
+        Storage::disk('public')->assertMissing('blog/reuse-post.png');
+    }
+
+    public function test_it_does_not_reuse_paths_that_escape_the_upload_directory(): void
+    {
+        Storage::fake('public');
+        Http::fake(['*' => Http::response('img', 200, ['Content-Type' => 'image/png'])]);
+        Storage::disk('public')->put('secret.png', 'x');
+
+        $this->postJson('/api/blog-posts', [
+            'title' => 'Traversal Post',
+            'body' => 'Body',
+            'image_url' => asset('storage/generated/../secret.png'),
+        ], $this->headers())->assertStatus(201);
+
+        $this->assertSame('blog/traversal-post.png', BlogPost::firstOrFail()->image_path);
+    }
+
+    public function test_it_queues_a_push_to_cuelara_by_default(): void
+    {
+        Queue::fake();
+
+        $this->postJson('/api/blog-posts', ['title' => 'Queued', 'body' => 'Body'], $this->headers())
+            ->assertStatus(201);
+
+        Queue::assertPushed(PushBlogPostToCuelara::class);
+    }
+
+    public function test_it_skips_the_cuelara_push_when_disabled(): void
+    {
+        Queue::fake();
+
+        $this->postJson('/api/blog-posts', [
+            'title' => 'Not Queued',
+            'body' => 'Body',
+            'send_to_cuelara' => false,
+        ], $this->headers())->assertStatus(201);
+
+        Queue::assertNotPushed(PushBlogPostToCuelara::class);
     }
 }

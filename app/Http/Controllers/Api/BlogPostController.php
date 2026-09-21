@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\PushBlogPostToCuelara;
 use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\Setting;
@@ -18,6 +19,8 @@ use Illuminate\Validation\ValidationException;
 
 class BlogPostController extends Controller
 {
+    private const UPLOAD_DIRECTORY = 'generated';
+
     private const IMAGE_EXTENSIONS = [
         'image/jpeg' => 'jpg',
         'image/png' => 'png',
@@ -38,13 +41,15 @@ class BlogPostController extends Controller
             'tags' => ['nullable', 'array'],
             'tags.*' => ['string', 'max:100'],
             'published_at' => ['nullable', 'date'],
+            'send_to_cuelara' => ['nullable', 'boolean'],
         ]);
 
         $slug = $data['slug'] ?? $this->generateUniqueSlug($data['title']);
 
         $imagePath = null;
         if (! empty($data['image_url'])) {
-            $imagePath = $this->downloadImage($data['image_url'], $slug);
+            $imagePath = $this->resolveUploadedImagePath($data['image_url'])
+                ?? $this->downloadImage($data['image_url'], $slug);
         }
 
         $autoApprove = Setting::current()->auto_approve_posts;
@@ -61,6 +66,10 @@ class BlogPostController extends Controller
 
         $post->categories()->sync($this->resolveTerms(Category::class, $data['categories'] ?? []));
         $post->tags()->sync($this->resolveTerms(Tag::class, $data['tags'] ?? []));
+
+        if ($request->boolean('send_to_cuelara', true)) {
+            PushBlogPostToCuelara::dispatch($post)->afterResponse();
+        }
 
         return response()->json([
             'id' => $post->id,
@@ -137,6 +146,34 @@ class BlogPostController extends Controller
         }
 
         return $slug;
+    }
+
+    /**
+     * Return the storage path when the URL points to an image already uploaded
+     * through the upload-image API, so it is reused instead of downloaded again.
+     */
+    private function resolveUploadedImagePath(string $url): ?string
+    {
+        $storageUrl = parse_url(asset('storage/'.self::UPLOAD_DIRECTORY.'/'));
+        $imageUrl = parse_url($url);
+
+        if (! isset($imageUrl['host'], $imageUrl['path'])
+            || strcasecmp($imageUrl['host'], $storageUrl['host']) !== 0
+            || ($imageUrl['port'] ?? null) !== ($storageUrl['port'] ?? null)
+        ) {
+            return null;
+        }
+
+        $path = rawurldecode($imageUrl['path']);
+        $prefix = rtrim($storageUrl['path'], '/').'/';
+
+        if (! str_starts_with($path, $prefix) || str_contains($path, '..')) {
+            return null;
+        }
+
+        $relativePath = self::UPLOAD_DIRECTORY.'/'.substr($path, strlen($prefix));
+
+        return Storage::disk('public')->exists($relativePath) ? $relativePath : null;
     }
 
     private function downloadImage(string $url, string $slug): string

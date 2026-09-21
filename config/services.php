@@ -44,6 +44,11 @@ return [
         'token' => env('BLOG_API_TOKEN'),
     ],
 
+    'cuelara' => [
+        'url' => env('CUELARA_API_URL'),
+        'token' => env('CUELARA_API_TOKEN'),
+    ],
+
     'linkedin' => [
         'client_id' => env('LINKEDIN_CLIENT_ID'),
         'client_secret' => env('LINKEDIN_CLIENT_SECRET'),

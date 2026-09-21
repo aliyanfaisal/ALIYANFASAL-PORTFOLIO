@@ -3,12 +3,15 @@
 namespace Tests\Feature\Filament;
 
 use App\Filament\Resources\BlogPosts\Pages\CreateBlogPost;
+use App\Filament\Resources\BlogPosts\Pages\EditBlogPost;
+use App\Jobs\PushBlogPostToCuelara;
 use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -45,5 +48,24 @@ class BlogPostResourceTest extends TestCase
         $this->assertTrue($post->categories->contains($category));
         $this->assertTrue($post->tags->contains($tag));
         Storage::disk('public')->assertExists($post->image_path);
+    }
+
+    public function test_admin_can_send_a_post_to_cuelara_from_the_edit_page(): void
+    {
+        Queue::fake();
+        config([
+            'services.cuelara.url' => 'https://cuelara.test/api/blog-posts',
+            'services.cuelara.token' => 'token',
+        ]);
+
+        $admin = User::factory()->create(['is_admin' => true]);
+        $post = BlogPost::create(['title' => 'Hi', 'slug' => 'hi', 'excerpt' => 'e', 'body' => 'b']);
+
+        Livewire::actingAs($admin)
+            ->test(EditBlogPost::class, ['record' => $post->slug])
+            ->callAction('sendToCuelara')
+            ->assertNotified('Post queued for Cuelara');
+
+        Queue::assertPushed(PushBlogPostToCuelara::class, fn ($job): bool => $job->force && $job->post->is($post));
     }
 }

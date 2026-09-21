@@ -13,10 +13,12 @@ class BlogPost extends Model
 {
     protected $fillable = [
         'title', 'slug', 'excerpt', 'body', 'image_path', 'source_image_url', 'published_at',
+        'cuelara_synced_at',
     ];
 
     protected $casts = [
         'published_at' => 'datetime',
+        'cuelara_synced_at' => 'datetime',
     ];
 
     public function scopePublished(Builder $query): void
