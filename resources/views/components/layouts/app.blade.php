@@ -5,6 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msvalidate.01" content="3C3AC06C5BDC26DF8A5D4C04239D0370" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? 'Aliyan Faisal — Full-Stack Laravel & WordPress Developer' }}</title>
     <meta name="description"
