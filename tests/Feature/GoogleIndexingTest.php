@@ -75,6 +75,7 @@ class GoogleIndexingTest extends TestCase
     public function test_the_job_sends_a_signed_url_notification_to_google(): void
     {
         $this->configureCredentials();
+        Bus::fake();
         $this->makePost();
 
         Http::fake([
@@ -95,6 +96,7 @@ class GoogleIndexingTest extends TestCase
     public function test_the_job_skips_posts_that_are_no_longer_published(): void
     {
         $this->configureCredentials();
+        Bus::fake();
         $this->makePost(['published_at' => null]);
         Http::fake();
 
