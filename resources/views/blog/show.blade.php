@@ -9,6 +9,20 @@
         $post->excerpt ?: trim(preg_replace('/\s+/', ' ', strip_tags($post->body_html))),
         160,
     );
+    $imageWidth = 1200;
+    $imageHeight = 630;
+    if ($post->image_path) {
+        $imageSize = @getimagesize(storage_path('app/public/'.$post->image_path));
+        if ($imageSize) {
+            [$imageWidth, $imageHeight] = $imageSize;
+        }
+    }
+    $authorSameAs = array_values(array_filter([$settings->github_url, $settings->linkedin_url]));
+    $breadcrumbs = [
+        ['name' => 'Home', 'url' => route('home')],
+        ['name' => 'Blog', 'url' => route('blog.index')],
+    ];
+    $faqs = $post->faqs;
     $totalComments = $post->comments->sum(fn ($comment) => 1 + $comment->replies->count());
 @endphp
 <x-layouts.app :title="$post->title.' — '.$settings->site_name" :description="$metaDescription">
@@ -38,7 +52,7 @@
 
         <script type="application/ld+json">
             {!! json_encode([
-                '@context' => 'https://schema.org',
+                '@@context' => 'https://schema.org',
                 '@type' => 'BlogPosting',
                 'headline' => $post->title,
                 'description' => $metaDescription,
@@ -46,14 +60,49 @@
                 'datePublished' => $post->published_at->toIso8601String(),
                 'dateModified' => $post->updated_at->toIso8601String(),
                 'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => $postUrl],
-                'author' => ['@type' => 'Person', 'name' => $settings->site_name],
+                'author' => array_filter([
+                    '@type' => 'Person',
+                    'name' => $settings->site_name,
+                    'url' => route('about'),
+                    'sameAs' => $authorSameAs,
+                ]),
                 'publisher' => [
                     '@type' => 'Organization',
                     'name' => $settings->site_name,
-                    'logo' => ['@type' => 'ImageObject', 'url' => $fallbackOgImage],
+                    'logo' => ['@type' => 'ImageObject', 'url' => asset('images/aliyan-headshot-cutout.png')],
                 ],
-            ], JSON_UNESCAPED_SLASHES) !!}
+            ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) !!}
         </script>
+
+        <script type="application/ld+json">
+            {!! json_encode([
+                '@@context' => 'https://schema.org',
+                '@type' => 'BreadcrumbList',
+                'itemListElement' => [
+                    ...collect($breadcrumbs)->map(fn ($crumb, $index) => [
+                        '@type' => 'ListItem',
+                        'position' => $index + 1,
+                        'name' => $crumb['name'],
+                        'item' => $crumb['url'],
+                    ])->all(),
+                    ['@type' => 'ListItem', 'position' => count($breadcrumbs) + 1, 'name' => $post->title],
+                ],
+            ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) !!}
+        </script>
+
+        @if (count($faqs) > 0)
+            <script type="application/ld+json">
+                {!! json_encode([
+                    '@@context' => 'https://schema.org',
+                    '@type' => 'FAQPage',
+                    'mainEntity' => collect($faqs)->map(fn ($faq) => [
+                        '@type' => 'Question',
+                        'name' => $faq['question'],
+                        'acceptedAnswer' => ['@type' => 'Answer', 'text' => $faq['answer']],
+                    ])->all(),
+                ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG) !!}
+            </script>
+        @endif
 
         <script>
             window.renderTurnstileWhenReady = function (el) {
@@ -71,6 +120,18 @@
     </x-slot:head>
 
     <article class="mx-auto max-w-4xl px-6 py-16">
+        <nav aria-label="Breadcrumb" class="mb-6 text-sm text-zinc-500 dark:text-zinc-400">
+            <ol class="flex flex-wrap items-center gap-2">
+                @foreach ($breadcrumbs as $crumb)
+                    <li class="flex items-center gap-2">
+                        <a href="{{ $crumb['url'] }}" class="transition hover:text-indigo-500 dark:hover:text-indigo-400">{{ $crumb['name'] }}</a>
+                        <span aria-hidden="true" class="text-zinc-300 dark:text-zinc-700">/</span>
+                    </li>
+                @endforeach
+                <li aria-current="page" class="truncate font-medium text-zinc-700 dark:text-zinc-300">{{ $post->title }}</li>
+            </ol>
+        </nav>
+
         @if ($post->categories->isNotEmpty())
             <div class="flex flex-wrap gap-2">
                 @foreach ($post->categories as $category)
@@ -91,7 +152,7 @@
         </div>
 
         @if ($post->image_path)
-            <img src="{{ asset('storage/'.$post->image_path) }}" alt="{{ $post->title }}" class="mt-8 w-full rounded-2xl">
+            <img src="{{ asset('storage/'.$post->image_path) }}" alt="{{ $post->title }}" width="{{ $imageWidth }}" height="{{ $imageHeight }}" fetchpriority="high" decoding="async" class="mt-8 h-auto w-full rounded-2xl">
         @endif
 
         <div class="prose dark:prose-invert prose-zinc mt-8 max-w-none prose-a:text-indigo-500 dark:prose-a:text-indigo-400">

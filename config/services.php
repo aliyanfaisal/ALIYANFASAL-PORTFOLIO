@@ -49,6 +49,10 @@ return [
         'token' => env('CUELARA_API_TOKEN'),
     ],
 
+    'google_indexing' => [
+        'credentials' => env('GOOGLE_INDEXING_CREDENTIALS'),
+    ],
+
     'linkedin' => [
         'client_id' => env('LINKEDIN_CLIENT_ID'),
         'client_secret' => env('LINKEDIN_CLIENT_SECRET'),

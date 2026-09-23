@@ -27,7 +27,8 @@ class BlogController extends Controller
             ->with(['categories', 'tags', 'comments.reactions', 'comments.replies.reactions'])
             ->firstOrFail();
 
-        $post->increment('views');
+        // A page view must not bump updated_at, which feeds the sitemap lastmod and schema dateModified.
+        BlogPost::withoutTimestamps(fn () => $post->increment('views'));
 
         return view('blog.show', ['post' => $post]);
     }

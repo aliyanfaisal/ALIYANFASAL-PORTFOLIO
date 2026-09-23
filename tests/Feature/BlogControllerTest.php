@@ -161,4 +161,37 @@ class BlogControllerTest extends TestCase
 
         $this->get('/blog/'.$post->slug)->assertNotFound();
     }
+
+    public function test_show_promotes_faq_questions_to_h3_and_emits_schema(): void
+    {
+        $post = BlogPost::create([
+            'title' => 'Fix Guide',
+            'slug' => 'fix-guide',
+            'body' => "Intro.\n\n## Frequently Asked Questions\n\n**Why does it loop?**\n\nBecause state changes.\n\n**Is it only useState?**\n\nNo, any state update.\n\n## Conclusion\n\n**Bold note?**\n\nStays a paragraph.",
+            'published_at' => now()->subDay(),
+        ]);
+
+        $response = $this->get('/blog/'.$post->slug)->assertOk();
+
+        $response->assertSee('<h3>Why does it loop?</h3>', false);
+        $response->assertSee('<h3>Is it only useState?</h3>', false);
+        $response->assertSee('<p><strong>Bold note?</strong></p>', false);
+        $response->assertSee('"@type":"FAQPage"', false);
+        $response->assertSee('"@type":"BreadcrumbList"', false);
+        $response->assertSee('"@context":"https://schema.org"', false);
+        $response->assertSee('aria-label="Breadcrumb"', false);
+        $this->assertSame(2, substr_count($response->getContent(), '"@type":"Question"'));
+    }
+
+    public function test_show_omits_faq_schema_when_the_post_has_no_faq_section(): void
+    {
+        $post = BlogPost::create([
+            'title' => 'Plain',
+            'slug' => 'plain',
+            'body' => 'Just text.',
+            'published_at' => now()->subDay(),
+        ]);
+
+        $this->get('/blog/'.$post->slug)->assertOk()->assertDontSee('FAQPage', false);
+    }
 }
